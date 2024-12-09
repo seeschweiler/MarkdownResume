@@ -3,11 +3,18 @@ import path from "path";
 import matter from "gray-matter";
 
 export async function GET() {
-  const contentDirectory = path.join(process.cwd(), "content");
-  const fullPath = path.join(contentDirectory, "skills.md");
+  const fullPath = path.join(process.cwd(), "content", "skills.md");
 
-  const fileContents = await fs.readFile(fullPath, "utf8");
-  const { data } = matter(fileContents);
+  try {
+    // Check if file exists at exact path
+    await fs.access(fullPath);
 
-  return Response.json(data);
+    const fileContents = await fs.readFile(fullPath, "utf8");
+    const { data } = matter(fileContents);
+
+    return Response.json(data);
+  } catch (error) {
+    // Return empty object if file doesn't exist
+    return Response.json({ skills: [] });
+  }
 }

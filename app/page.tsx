@@ -5,6 +5,8 @@ import { parseMarkdown } from "../lib/markdown";
 import type { PersonalDetails } from "../types/personal-details";
 import ReactMarkdown from "react-markdown";
 import { DarkModeToggle } from "./components/DarkModeToggle";
+import { getEducation } from "./utils/education";
+import type { Education } from "./types/education";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -23,17 +25,25 @@ async function getPersonalDetails() {
 }
 
 async function getSkills() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/skills`, {
-    next: { revalidate: 3600 },
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/skills?t=${Date.now()}`,
+    {
+      cache: "no-store",
+      next: { revalidate: 0 },
+    }
+  );
   if (!res.ok) throw new Error("Failed to fetch skills");
   return res.json();
 }
 
 async function getSummary() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/content`, {
-    next: { revalidate: 3600 },
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/content?t=${Date.now()}`,
+    {
+      cache: "no-store",
+      next: { revalidate: 0 },
+    }
+  );
   if (!res.ok) throw new Error("Failed to fetch summary");
   return res.json();
 }
@@ -57,6 +67,9 @@ export default async function Resume() {
     getSummary(),
     getExperience(),
   ]);
+
+  const experiences = getExperience();
+  const education = getEducation();
 
   return (
     <div
@@ -120,71 +133,89 @@ export default async function Resume() {
             </div>
           </section>
 
-          <section className="mb-10">
-            <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
-              Summary
-            </h3>
-            <div
-              className="text-gray-600 dark:text-gray-300 leading-relaxed prose prose-teal dark:prose-invert max-w-none"
-              dangerouslySetInnerHTML={{
-                __html: parseMarkdown(summary.content),
-              }}
-            />
-          </section>
+          {summary?.content && (
+            <section className="mb-10">
+              <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
+                Summary
+              </h3>
+              <div
+                className="text-gray-600 dark:text-gray-300 leading-relaxed prose prose-teal dark:prose-invert max-w-none"
+                dangerouslySetInnerHTML={{
+                  __html: parseMarkdown(summary.content),
+                }}
+              />
+            </section>
+          )}
 
-          <section className="mb-10">
-            <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
-              Experience
-            </h3>
-            <div className="space-y-6">
-              {experience.map((exp: any, index: number) => (
-                <div key={index}>
-                  <h4 className="text-xl font-medium text-gray-800 dark:text-gray-100">
-                    {exp.title}
-                  </h4>
-                  <p className="text-teal-600 dark:text-teal-400">
-                    {exp.company} | {exp.startDate} - {exp.endDate}
-                  </p>
-                  <div
-                    className="text-gray-600 dark:text-gray-300 leading-relaxed prose prose-teal dark:prose-invert max-w-none"
-                    dangerouslySetInnerHTML={{
-                      __html: parseMarkdown(exp.content),
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
-          </section>
+          {experience.length > 0 && (
+            <section className="mb-10">
+              <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
+                Experience
+              </h3>
+              <div className="space-y-6">
+                {experience.map((exp: any, index: number) => (
+                  <div key={index}>
+                    <h4 className="text-xl font-medium text-gray-800 dark:text-gray-100">
+                      {exp.title}
+                    </h4>
+                    <p className="text-teal-600 dark:text-teal-400">
+                      {exp.company} | {exp.startDate} - {exp.endDate}
+                    </p>
+                    <div
+                      className="text-gray-600 dark:text-gray-300 leading-relaxed prose prose-teal dark:prose-invert max-w-none"
+                      dangerouslySetInnerHTML={{
+                        __html: parseMarkdown(exp.content),
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
 
-          <section className="mb-10">
-            <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
-              Skills
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {skills.skills.map((skill: string) => (
-                <span
-                  key={skill}
-                  className="bg-teal-100 dark:bg-teal-900 text-teal-700 dark:text-teal-300 px-3 py-1 rounded-full text-sm font-medium"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </section>
+          {skills?.skills?.length > 0 && (
+            <section className="mb-10">
+              <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
+                Skills
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {skills.skills.map((skill: string) => (
+                  <span
+                    key={skill}
+                    className="bg-teal-100 dark:bg-teal-900 text-teal-700 dark:text-teal-300 px-3 py-1 rounded-full text-sm font-medium"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </section>
+          )}
 
-          <section>
-            <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
-              Education
-            </h3>
-            <div>
-              <h4 className="text-xl font-medium text-gray-800 dark:text-gray-100">
-                Bachelor of Science in Computer Science
-              </h4>
-              <p className="text-teal-600 dark:text-teal-400">
-                University of Technology | 2012 - 2016
-              </p>
-            </div>
-          </section>
+          {education.length > 0 && (
+            <section className="mb-12">
+              <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
+                Education
+              </h3>
+              <div className="space-y-6">
+                {education.map((edu) => (
+                  <div key={edu.id}>
+                    <h4 className="text-xl font-medium text-gray-800 dark:text-gray-100">
+                      {edu.title}
+                    </h4>
+                    <p className="text-teal-600 dark:text-teal-400">
+                      {edu.institution} | {edu.startDate} - {edu.endDate}
+                    </p>
+                    <div
+                      className="text-gray-600 dark:text-gray-300 leading-relaxed prose prose-teal dark:prose-invert max-w-none"
+                      dangerouslySetInnerHTML={{
+                        __html: parseMarkdown(edu.content),
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
         </div>
 
         <footer className="bg-gray-100 dark:bg-gray-700 text-center py-4 transition-colors duration-200">

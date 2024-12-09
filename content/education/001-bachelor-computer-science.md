@@ -1,11 +1,12 @@
 ---
-title: "Bachelor of Science in Computer Science"
-institution: "University of Technology"
-startDate: "2012"
-endDate: "2016"
+title: "Bachelor of Computer Science"
+institution: "University Name"
+location: "City, Country"
+startDate: "2016"
+endDate: "2020"
 ---
 
-- Graduated with honors (GPA: 3.8/4.0)
-- Specialized in Software Engineering and Distributed Systems
-- Completed senior thesis on cloud computing optimization
-- Active member of the Computer Science Student Association 
+- Led development of multiple full-stack applications using React, Node.js, and TypeScript
+- Implemented CI/CD pipelines and automated testing strategies
+- Mentored junior developers and conducted regular code reviews
+- Architected scalable cloud solutions using AWS services 
