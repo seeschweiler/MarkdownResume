@@ -1,0 +1,13 @@
+---
+skills:
+  - TypeScript
+  - React
+  - Node.js
+  - Express
+  - MongoDB
+  - SQL
+  - AWS
+  - Docker
+  - Git
+  - JavaScript
+---

@@ -1,8 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MarkdownResume
+
+A modern, customizable resume builder that converts Markdown content into a beautiful, responsive web-based resume. Built with Next.js and TypeScript.
+
+## Features
+
+- 🎨 Dark/Light mode support
+- 📱 Fully responsive design
+- ✍️ Write your resume in Markdown
+- 🔄 Real-time preview
+- 📂 Organized content structure
+- 🎯 SEO optimized
+- 🚀 Fast performance with Next.js
+
+## Project Structure
+
+```
+MarkdownResume/
+├── app/
+│   ├── components/
+│   │   └── DarkModeToggle.tsx
+│   └── page.tsx
+├── content/
+│   ├── education/
+│   │   └── 001-bachelor-computer-science.md
+│   └── experience/
+│       ├── 001-senior-software-engineer.md
+│       └── 002-software-engineer.md
+├── hooks/
+│   └── useDarkMode.ts
+└── public/
+```
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repository:
+
+```bash
+git clone https://github.com/seeschweiler/markdown-resume.git
+cd markdown-resume
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+3. Create a `.env.local` file in the root directory and add your environment variables:
+
+```env
+# Example environment variables
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+```
+
+4. Start the development server:
 
 ```bash
 npm run dev
@@ -10,27 +65,48 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Open [http://localhost:3000](http://localhost:3000) with your browser to see your resume.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Customizing Your Resume
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Content Structure
 
-## Learn More
+Place your resume content in the `content/` directory:
 
-To learn more about Next.js, take a look at the following resources:
+- `content/education/`: Add your educational background
+- `content/experience/`: Add your work experience
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Each file should be in Markdown format with a numerical prefix for ordering (e.g., `001-`, `002-`).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Dark Mode
 
-## Deploy on Vercel
+The project includes a dark mode toggle component and a custom hook for managing theme preferences. You can customize the theme colors in the TailwindCSS configuration.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deployment
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is optimized for deployment on [Vercel](https://vercel.com). To deploy your resume:
+
+1. Push your code to GitHub
+2. Import your repository to Vercel
+3. Configure your environment variables
+4. Deploy!
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- Built with [Next.js](https://nextjs.org)
+- Styling with [Tailwind CSS](https://tailwindcss.com)
+- Dark mode implementation inspired by [next-themes](https://github.com/pacocoursey/next-themes)
+
+## Support
+
+If you find this project helpful, please give it a ⭐️ on GitHub!
