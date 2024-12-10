@@ -1,0 +1,55 @@
+{
+  "name": "Purple",
+  "light": {
+    "page": {
+      "background": "#faf5ff"
+    },
+    "background": {
+      "primary": "#ffffff",
+      "secondary": "#f3e8ff"
+    },
+    "footer": {
+      "primary": "#f3e8ff",
+      "secondary": "#e9d5ff"
+    },
+    "text": {
+      "primary": "#4c1d95",
+      "secondary": "#6d28d9",
+      "accent": "#7c3aed"
+    },
+    "border": {
+      "primary": "#d8b4fe"
+    },
+    "button": {
+      "background": "#7c3aed",
+      "text": "#ffffff",
+      "hover": "#6d28d9"
+    }
+  },
+  "dark": {
+    "page": {
+      "background": "#2e1065"
+    },
+    "background": {
+      "primary": "#4c1d95",
+      "secondary": "#581c87"
+    },
+    "footer": {
+      "primary": "#581c87",
+      "secondary": "#4c1d95"
+    },
+    "text": {
+      "primary": "#faf5ff",
+      "secondary": "#f3e8ff",
+      "accent": "#a855f7"
+    },
+    "border": {
+      "primary": "#7c3aed"
+    },
+    "button": {
+      "background": "#8b5cf6",
+      "text": "#ffffff",
+      "hover": "#a855f7"
+    }
+  }
+} 

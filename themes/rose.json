@@ -1,0 +1,55 @@
+{
+  "name": "Rose",
+  "light": {
+    "page": {
+      "background": "#fff1f2"
+    },
+    "background": {
+      "primary": "#ffffff",
+      "secondary": "#ffe4e6"
+    },
+    "footer": {
+      "primary": "#ffe4e6",
+      "secondary": "#fecdd3"
+    },
+    "text": {
+      "primary": "#9f1239",
+      "secondary": "#be123c",
+      "accent": "#e11d48"
+    },
+    "border": {
+      "primary": "#fda4af"
+    },
+    "button": {
+      "background": "#e11d48",
+      "text": "#ffffff",
+      "hover": "#be123c"
+    }
+  },
+  "dark": {
+    "page": {
+      "background": "#881337"
+    },
+    "background": {
+      "primary": "#9f1239",
+      "secondary": "#be123c"
+    },
+    "footer": {
+      "primary": "#be123c",
+      "secondary": "#9f1239"
+    },
+    "text": {
+      "primary": "#fff1f2",
+      "secondary": "#ffe4e6",
+      "accent": "#fb7185"
+    },
+    "border": {
+      "primary": "#e11d48"
+    },
+    "button": {
+      "background": "#f43f5e",
+      "text": "#ffffff",
+      "hover": "#fb7185"
+    }
+  }
+} 

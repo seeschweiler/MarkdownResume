@@ -1,0 +1,55 @@
+{
+  "name": "Amber",
+  "light": {
+    "page": {
+      "background": "#fffbeb"
+    },
+    "background": {
+      "primary": "#ffffff",
+      "secondary": "#fef3c7"
+    },
+    "footer": {
+      "primary": "#fef3c7",
+      "secondary": "#fde68a"
+    },
+    "text": {
+      "primary": "#92400e",
+      "secondary": "#b45309",
+      "accent": "#d97706"
+    },
+    "border": {
+      "primary": "#fcd34d"
+    },
+    "button": {
+      "background": "#d97706",
+      "text": "#ffffff",
+      "hover": "#b45309"
+    }
+  },
+  "dark": {
+    "page": {
+      "background": "#78350f"
+    },
+    "background": {
+      "primary": "#92400e",
+      "secondary": "#b45309"
+    },
+    "footer": {
+      "primary": "#b45309",
+      "secondary": "#92400e"
+    },
+    "text": {
+      "primary": "#fffbeb",
+      "secondary": "#fef3c7",
+      "accent": "#fbbf24"
+    },
+    "border": {
+      "primary": "#d97706"
+    },
+    "button": {
+      "background": "#f59e0b",
+      "text": "#ffffff",
+      "hover": "#fbbf24"
+    }
+  }
+} 

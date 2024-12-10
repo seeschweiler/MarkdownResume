@@ -1,0 +1,55 @@
+{
+  "name": "Teal",
+  "light": {
+    "page": {
+      "background": "#f0fdfa"
+    },
+    "background": {
+      "primary": "#ffffff",
+      "secondary": "#ccfbf1"
+    },
+    "footer": {
+      "primary": "#ccfbf1",
+      "secondary": "#99f6e4"
+    },
+    "text": {
+      "primary": "#115e59",
+      "secondary": "#0f766e",
+      "accent": "#0d9488"
+    },
+    "border": {
+      "primary": "#5eead4"
+    },
+    "button": {
+      "background": "#0d9488",
+      "text": "#ffffff",
+      "hover": "#0f766e"
+    }
+  },
+  "dark": {
+    "page": {
+      "background": "#134e4a"
+    },
+    "background": {
+      "primary": "#115e59",
+      "secondary": "#0f766e"
+    },
+    "footer": {
+      "primary": "#0f766e",
+      "secondary": "#115e59"
+    },
+    "text": {
+      "primary": "#f0fdfa",
+      "secondary": "#ccfbf1",
+      "accent": "#2dd4bf"
+    },
+    "border": {
+      "primary": "#0d9488"
+    },
+    "button": {
+      "background": "#14b8a6",
+      "text": "#ffffff",
+      "hover": "#2dd4bf"
+    }
+  }
+} 

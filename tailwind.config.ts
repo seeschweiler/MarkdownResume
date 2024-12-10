@@ -8,6 +8,22 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        theme: {
+          bg: {
+            primary: "var(--theme-bg-primary)",
+            secondary: "var(--theme-bg-secondary)",
+          },
+          text: {
+            primary: "var(--theme-text-primary)",
+            secondary: "var(--theme-text-secondary)",
+            accent: "var(--theme-text-accent)",
+          },
+          border: {
+            primary: "var(--theme-border-primary)",
+          },
+        },
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

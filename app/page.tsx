@@ -1,6 +1,16 @@
 import Image from "next/image";
 import { Poppins } from "next/font/google";
-import { Mail, Phone, MapPin, Github, Linkedin, FileText } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Github,
+  Linkedin,
+  FileText,
+  GraduationCap,
+  Briefcase,
+  Zap,
+} from "lucide-react";
 import { parseMarkdown } from "../lib/markdown";
 import type { PersonalDetails } from "../types/personal-details";
 import ReactMarkdown from "react-markdown";
@@ -74,9 +84,9 @@ export default async function Resume() {
   return (
     <div
       style={{ perspective: "1000px" }}
-      className={`min-h-screen bg-gradient-to-br from-teal-100 to-blue-100 dark:from-gray-900 dark:to-teal-950 p-6 transition-colors duration-200 ${poppins.className}`}
+      className="min-h-screen bg-[var(--theme-page-bg)] p-6 transition-colors duration-200"
     >
-      <main className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-colors duration-200">
+      <main className="max-w-4xl mx-auto bg-theme-bg-primary rounded-xl shadow-lg overflow-hidden transition-colors duration-200">
         <div className="p-8 sm:p-12">
           <div className="flex justify-end mb-4">
             <DarkModeToggle />
@@ -92,15 +102,15 @@ export default async function Resume() {
                 className="avatar-image object-cover w-full h-full"
               />
             </div>
-            <h1 className="text-4xl sm:text-5xl font-bold text-gray-800 dark:text-gray-100 mb-2">
+            <h1 className="text-4xl sm:text-5xl font-bold text-theme-text-primary mb-2">
               {personalDetails.name}
             </h1>
-            <h2 className="text-xl sm:text-2xl text-teal-600 dark:text-teal-400 font-medium">
+            <h2 className="text-xl sm:text-2xl text-theme-text-accent font-medium">
               {personalDetails.role}
             </h2>
           </header>
 
-          <section className="mb-10 flex flex-wrap justify-center gap-4 text-gray-600 dark:text-gray-300">
+          <section className="mb-10 flex flex-wrap justify-center gap-4 text-theme-text-secondary">
             <div className="flex items-center">
               <Mail className="w-5 h-5 mr-2 text-teal-500 dark:text-teal-400" />
               <span>{personalDetails.contact.email}</span>
@@ -135,9 +145,10 @@ export default async function Resume() {
 
           {summary?.content && (
             <section className="mb-10">
-              <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
+              <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-900 dark:text-gray-100">
+                <FileText className="w-6 h-6" />
                 Summary
-              </h3>
+              </h2>
               <div
                 className="text-gray-600 dark:text-gray-300 leading-relaxed prose prose-teal dark:prose-invert max-w-none"
                 dangerouslySetInnerHTML={{
@@ -149,9 +160,10 @@ export default async function Resume() {
 
           {experience.length > 0 && (
             <section className="mb-10">
-              <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
+              <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-900 dark:text-gray-100">
+                <Briefcase className="w-6 h-6" />
                 Experience
-              </h3>
+              </h2>
               <div className="space-y-6">
                 {experience.map((exp: any, index: number) => (
                   <div key={index}>
@@ -175,9 +187,10 @@ export default async function Resume() {
 
           {skills?.skills?.length > 0 && (
             <section className="mb-10">
-              <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
+              <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-900 dark:text-gray-100">
+                <Zap className="w-6 h-6" />
                 Skills
-              </h3>
+              </h2>
               <div className="flex flex-wrap gap-2">
                 {skills.skills.map((skill: string) => (
                   <span
@@ -193,9 +206,10 @@ export default async function Resume() {
 
           {education.length > 0 && (
             <section className="mb-12">
-              <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
+              <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-900 dark:text-gray-100">
+                <GraduationCap className="w-6 h-6" />
                 Education
-              </h3>
+              </h2>
               <div className="space-y-6">
                 {education.map((edu) => (
                   <div key={edu.id}>
@@ -218,7 +232,7 @@ export default async function Resume() {
           )}
         </div>
 
-        <footer className="bg-gray-100 dark:bg-gray-700 text-center py-4 transition-colors duration-200">
+        <footer className="bg-[var(--theme-footer-primary)] text-theme-text-primary text-center py-4 transition-colors duration-200">
           <a
             href="#"
             className="inline-flex items-center text-teal-600 dark:text-teal-400 hover:text-teal-700 dark:hover:text-teal-300 transition-colors"
@@ -228,7 +242,7 @@ export default async function Resume() {
           </a>
         </footer>
 
-        <footer className="bg-gray-200 dark:bg-gray-600 text-center py-3 transition-colors duration-200">
+        <footer className="bg-[var(--theme-footer-secondary)] text-center py-3 transition-colors duration-200">
           <nav className="flex justify-center space-x-4">
             <a
               href="#"

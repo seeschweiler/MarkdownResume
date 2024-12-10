@@ -1,0 +1,55 @@
+{
+  "name": "Default",
+  "light": {
+    "page": {
+      "background": "#f0f9ff"
+    },
+    "background": {
+      "primary": "#ffffff",
+      "secondary": "#f3f4f6"
+    },
+    "footer": {
+      "primary": "#f3f4f6",
+      "secondary": "#e5e7eb"
+    },
+    "text": {
+      "primary": "#111827",
+      "secondary": "#4b5563",
+      "accent": "#3b82f6"
+    },
+    "border": {
+      "primary": "#e5e7eb"
+    },
+    "button": {
+      "background": "#3b82f6",
+      "text": "#ffffff",
+      "hover": "#2563eb"
+    }
+  },
+  "dark": {
+    "page": {
+      "background": "#111827"
+    },
+    "background": {
+      "primary": "#1f2937",
+      "secondary": "#111827"
+    },
+    "footer": {
+      "primary": "#374151",
+      "secondary": "#1f2937"
+    },
+    "text": {
+      "primary": "#f9fafb",
+      "secondary": "#d1d5db",
+      "accent": "#60a5fa"
+    },
+    "border": {
+      "primary": "#374151"
+    },
+    "button": {
+      "background": "#3b82f6",
+      "text": "#ffffff",
+      "hover": "#2563eb"
+    }
+  }
+} 

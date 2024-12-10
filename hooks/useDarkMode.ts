@@ -1,17 +1,30 @@
+"use client";
+
 import { useState, useEffect } from "react";
 
-export function useDarkMode() {
-  const [darkMode, setDarkMode] = useState(false);
+export const useDarkMode = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
-    const isDark = localStorage.getItem("darkMode") === "true";
-    setDarkMode(isDark);
+    // Check initial dark mode preference
+    const isDark =
+      localStorage.getItem("darkMode") === "true" ||
+      (!localStorage.getItem("darkMode") &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches);
+
+    setIsDarkMode(isDark);
   }, []);
 
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", darkMode);
-    localStorage.setItem("darkMode", darkMode.toString());
-  }, [darkMode]);
+    // Update document class and localStorage when dark mode changes
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("darkMode", "true");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("darkMode", "false");
+    }
+  }, [isDarkMode]);
 
-  return [darkMode, setDarkMode] as const;
-}
+  return [isDarkMode, setIsDarkMode] as const;
+};

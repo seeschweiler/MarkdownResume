@@ -1,0 +1,55 @@
+{
+  "name": "Green",
+  "light": {
+    "page": {
+      "background": "#dcfce7"
+    },
+    "background": {
+      "primary": "#f0fdf4",
+      "secondary": "#dcfce7"
+    },
+    "footer": {
+      "primary": "#bbf7d0",
+      "secondary": "#86efac"
+    },
+    "text": {
+      "primary": "#166534",
+      "secondary": "#15803d",
+      "accent": "#16a34a"
+    },
+    "border": {
+      "primary": "#86efac"
+    },
+    "button": {
+      "background": "#16a34a",
+      "text": "#ffffff",
+      "hover": "#15803d"
+    }
+  },
+  "dark": {
+    "page": {
+      "background": "#052e16"
+    },
+    "background": {
+      "primary": "#052e16",
+      "secondary": "#166534"
+    },
+    "footer": {
+      "primary": "#166534",
+      "secondary": "#052e16"
+    },
+    "text": {
+      "primary": "#f0fdf4",
+      "secondary": "#dcfce7",
+      "accent": "#86efac"
+    },
+    "border": {
+      "primary": "#16a34a"
+    },
+    "button": {
+      "background": "#22c55e",
+      "text": "#ffffff",
+      "hover": "#86efac"
+    }
+  }
+} 
