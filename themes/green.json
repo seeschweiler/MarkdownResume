@@ -28,28 +28,28 @@
   },
   "dark": {
     "page": {
-      "background": "#052e16"
+      "background": "#022c22"
     },
     "background": {
-      "primary": "#052e16",
-      "secondary": "#166534"
+      "primary": "#064e3b",
+      "secondary": "#065f46"
     },
     "footer": {
-      "primary": "#166534",
-      "secondary": "#052e16"
+      "primary": "#065f46",
+      "secondary": "#064e3b"
     },
     "text": {
-      "primary": "#f0fdf4",
-      "secondary": "#dcfce7",
-      "accent": "#86efac"
+      "primary": "#ecfdf5",
+      "secondary": "#d1fae5",
+      "accent": "#34d399"
     },
     "border": {
-      "primary": "#16a34a"
+      "primary": "#059669"
     },
     "button": {
-      "background": "#22c55e",
+      "background": "#10b981",
       "text": "#ffffff",
-      "hover": "#86efac"
+      "hover": "#34d399"
     }
   }
 } 

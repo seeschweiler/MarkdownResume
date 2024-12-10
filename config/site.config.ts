@@ -7,10 +7,12 @@ interface SiteConfig {
     | "rose"
     | "amber"
     | "teal";
+  displayThemeSelector: boolean;
 }
 
 const siteConfig: SiteConfig = {
-  activeTheme: "purple",
+  activeTheme: "default",
+  displayThemeSelector: false,
 };
 
 export default siteConfig;
