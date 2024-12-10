@@ -29,7 +29,7 @@ const siteConfig: SiteConfig = {
     educationSectionHeadlineText: "Education",
     downloadLinkText: "Download Full Resume",
     legalNoticeLinkText: "Legal Notice",
-    dataPrivacyPolicyLinkText: "Privacy Policy",
+    dataPrivacyPolicyLinkText: "Data Privacy Policy",
   },
 };
 

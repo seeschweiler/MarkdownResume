@@ -17,6 +17,7 @@ import ReactMarkdown from "react-markdown";
 import { DarkModeToggle } from "./components/DarkModeToggle";
 import { getEducation } from "./utils/education";
 import type { Education } from "./types/education";
+import siteConfig from "@/config/site.config";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -147,7 +148,7 @@ export default async function Resume() {
             <section className="mb-10">
               <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-900 dark:text-gray-100">
                 <FileText className="w-6 h-6" />
-                Summary
+                {siteConfig.texts.summarySectionHeadlineText}
               </h2>
               <div
                 className="text-gray-600 dark:text-gray-300 leading-relaxed prose prose-teal dark:prose-invert max-w-none"
@@ -162,7 +163,7 @@ export default async function Resume() {
             <section className="mb-10">
               <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-900 dark:text-gray-100">
                 <Briefcase className="w-6 h-6" />
-                Experience
+                {siteConfig.texts.experienceSectionHeadlineText}
               </h2>
               <div className="space-y-6">
                 {experience.map((exp: any, index: number) => (
@@ -189,7 +190,7 @@ export default async function Resume() {
             <section className="mb-10">
               <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-900 dark:text-gray-100">
                 <Zap className="w-6 h-6" />
-                Skills
+                {siteConfig.texts.skillsSectionHeadlineText}
               </h2>
               <div className="flex flex-wrap gap-2">
                 {skills.skills.map((skill: string) => (
@@ -208,7 +209,7 @@ export default async function Resume() {
             <section className="mb-12">
               <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-900 dark:text-gray-100">
                 <GraduationCap className="w-6 h-6" />
-                Education
+                {siteConfig.texts.educationSectionHeadlineText}
               </h2>
               <div className="space-y-6">
                 {education.map((edu) => (
@@ -238,7 +239,7 @@ export default async function Resume() {
             className="inline-flex items-center text-teal-600 dark:text-teal-400 hover:text-teal-700 dark:hover:text-teal-300 transition-colors"
           >
             <FileText className="w-5 h-5 mr-2" />
-            Download Full Resume
+            {siteConfig.texts.downloadLinkText}
           </a>
         </footer>
 
@@ -247,16 +248,16 @@ export default async function Resume() {
             <a
               href="#"
               className="text-sm text-gray-600 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
-              aria-label="Legal Notice"
+              aria-label={siteConfig.texts.legalNoticeLinkText}
             >
-              Legal Notice
+              {siteConfig.texts.legalNoticeLinkText}
             </a>
             <a
               href="#"
               className="text-sm text-gray-600 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
-              aria-label="Data Privacy Policy"
+              aria-label={siteConfig.texts.dataPrivacyPolicyLinkText}
             >
-              Data Privacy Policy
+              {siteConfig.texts.dataPrivacyPolicyLinkText}
             </a>
           </nav>
         </footer>
