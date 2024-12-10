@@ -8,11 +8,29 @@ interface SiteConfig {
     | "amber"
     | "teal";
   displayThemeSelector: boolean;
+  texts: {
+    summarySectionHeadlineText: string;
+    experienceSectionHeadlineText: string;
+    skillsSectionHeadlineText: string;
+    educationSectionHeadlineText: string;
+    downloadLinkText: string;
+    legalNoticeLinkText: string;
+    dataPrivacyPolicyLinkText: string;
+  };
 }
 
 const siteConfig: SiteConfig = {
   activeTheme: "default",
   displayThemeSelector: false,
+  texts: {
+    summarySectionHeadlineText: "Summary",
+    experienceSectionHeadlineText: "Experience",
+    skillsSectionHeadlineText: "Skills",
+    educationSectionHeadlineText: "Education",
+    downloadLinkText: "Download Full Resume",
+    legalNoticeLinkText: "Legal Notice",
+    dataPrivacyPolicyLinkText: "Privacy Policy",
+  },
 };
 
 export default siteConfig;
