@@ -16,6 +16,7 @@ interface SiteConfig {
     downloadLinkText: string;
     legalNoticeLinkText: string;
     dataPrivacyPolicyLinkText: string;
+    backLinkText: string;
   };
 }
 
@@ -30,6 +31,7 @@ const siteConfig: SiteConfig = {
     downloadLinkText: "Download Full Resume",
     legalNoticeLinkText: "Legal Notice",
     dataPrivacyPolicyLinkText: "Data Privacy Policy",
+    backLinkText: "Back to Resume",
   },
 };
 

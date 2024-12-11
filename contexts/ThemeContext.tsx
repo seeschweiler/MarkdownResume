@@ -41,65 +41,58 @@ const ThemeContext = createContext<ThemeContextType>({
   setActiveTheme: () => {},
 });
 
-export const ThemeProvider = ({ children }: { children: ReactNode }) => {
+export function ThemeProvider({ children }: { children: ReactNode }) {
   const [mounted, setMounted] = useState(false);
-  const [activeTheme, setActiveThemeState] = useState<ThemeType>(
+  const [activeTheme, setActiveTheme] = useState<ThemeType>(
     siteConfig.activeTheme
   );
-  const [updateKey, setUpdateKey] = useState(0);
 
-  const setActiveTheme = useCallback((newTheme: ThemeType) => {
-    setActiveThemeState(newTheme);
-    siteConfig.activeTheme = newTheme;
-    setUpdateKey((prev) => prev + 1);
+  useEffect(() => {
+    // On mount, check if this is a fresh page load or navigation
+    const navigationEntry = performance?.getEntriesByType?.(
+      "navigation"
+    )[0] as PerformanceNavigationTiming;
+    const isReload = navigationEntry?.type === "reload";
+
+    if (isReload || !navigationEntry) {
+      // On reload or initial load, use the config theme
+      setActiveTheme(siteConfig.activeTheme);
+      localStorage.removeItem("activeTheme");
+    } else {
+      // On navigation, try to use saved theme
+      const savedTheme = localStorage.getItem("activeTheme") as ThemeType;
+      if (savedTheme && themes[savedTheme]) {
+        setActiveTheme(savedTheme);
+      }
+    }
+    setMounted(true);
   }, []);
 
-  useEffect(() => {
-    const theme = themes[activeTheme];
-    const root = document.documentElement;
-    const isDark = root.classList.contains("dark");
-    const currentTheme = isDark ? theme.dark : theme.light;
-
-    Object.entries({
-      "--theme-bg-primary": currentTheme.background.primary,
-      "--theme-bg-secondary": currentTheme.background.secondary,
-      "--theme-text-primary": currentTheme.text.primary,
-      "--theme-text-secondary": currentTheme.text.secondary,
-      "--theme-text-accent": currentTheme.text.accent,
-      "--theme-border-primary": currentTheme.border.primary,
-      "--theme-button-background": currentTheme.button.background,
-      "--theme-button-text": currentTheme.button.text,
-      "--theme-button-hover": currentTheme.button.hover,
-    }).forEach(([key, value]) => {
-      root.style.setProperty(key, value);
-    });
-  }, [activeTheme, updateKey]);
-
-  useEffect(() => {
-    setMounted(true);
+  const handleThemeChange = useCallback((newTheme: ThemeType) => {
+    setActiveTheme(newTheme);
+    // Only save to localStorage if different from config
+    if (newTheme !== siteConfig.activeTheme) {
+      localStorage.setItem("activeTheme", newTheme);
+    } else {
+      localStorage.removeItem("activeTheme");
+    }
   }, []);
 
   if (!mounted) return null;
 
-  const currentTheme = themes[activeTheme] || defaultTheme;
+  const theme = themes[activeTheme];
 
   return (
     <ThemeContext.Provider
       value={{
-        theme: currentTheme,
+        theme,
         activeTheme,
-        setActiveTheme,
+        setActiveTheme: handleThemeChange,
       }}
     >
       {children}
     </ThemeContext.Provider>
   );
-};
+}
 
-export const useTheme = () => {
-  const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error("useTheme must be used within a ThemeProvider");
-  }
-  return context;
-};
+export const useTheme = () => useContext(ThemeContext);
