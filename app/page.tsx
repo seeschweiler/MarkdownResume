@@ -246,14 +246,14 @@ export default async function Resume() {
         <footer className="bg-[var(--theme-footer-secondary)] text-center py-3 transition-colors duration-200">
           <nav className="flex justify-center space-x-4">
             <a
-              href="#"
+              href="/legalnotice"
               className="text-sm text-gray-600 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
               aria-label={siteConfig.texts.legalNoticeLinkText}
             >
               {siteConfig.texts.legalNoticeLinkText}
             </a>
             <a
-              href="#"
+              href="/dataprivacypolicy"
               className="text-sm text-gray-600 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
               aria-label={siteConfig.texts.dataPrivacyPolicyLinkText}
             >
