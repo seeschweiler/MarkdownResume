@@ -1,112 +1,181 @@
 # MarkdownResume
 
-A modern, customizable resume builder that converts Markdown content into a beautiful, responsive web-based resume. Built with Next.js and TypeScript.
+MarkdownResume is a modern, hassle-free solution for creating your professional online resume. Instead of wrestling with complex HTML or design tools, simply write your resume content in Markdown - a simple and intuitive format. The project automatically transforms your Markdown content into a polished, responsive website that looks great on all devices.
 
-## Features
+## Why MarkdownResume?
 
-- 🎨 Dark/Light mode support
-- 📱 Fully responsive design
-- ✍️ Write your resume in Markdown
-- 🔄 Real-time preview
-- 📂 Organized content structure
-- 🎯 SEO optimized
-- 🚀 Fast performance with Next.js
+- 📝 **Content-First Approach**: Focus on your resume content using simple Markdown syntax
+- 🎨 **Professional Design**: Comes with a carefully crafted design that works right out of the box
+- 🌗 **Dark/Light Mode**: Built-in theme switching for optimal viewing
+- 📱 **Responsive**: Perfect display on all devices - mobile, tablet, and desktop
+- 🔄 **Easy Updates**: Modify your resume by simply editing Markdown files
+- 🎯 **SEO Optimized**: Great visibility for search engines
+- 🚀 **Modern Tech**: Built with Next.js for optimal performance
 
-## Project Structure
+## Setting Up Your Resume
 
-```
-MarkdownResume/
-├── app/
-│   ├── components/
-│   │   └── DarkModeToggle.tsx
-│   └── page.tsx
-├── content/
-│   ├── education/
-│   │   └── 001-bachelor-computer-science.md
-│   └── experience/
-│       ├── 001-senior-software-engineer.md
-│       └── 002-software-engineer.md
-├── hooks/
-│   └── useDarkMode.ts
-└── public/
-```
-
-## Getting Started
-
-1. Clone the repository:
+### 1. Initial Setup
 
 ```bash
+# Clone the repository
 git clone https://github.com/seeschweiler/markdown-resume.git
+
+# Navigate to the project
 cd markdown-resume
-```
 
-2. Install dependencies:
-
-```bash
+# Install dependencies
 npm install
-# or
-yarn install
-# or
-pnpm install
 ```
 
-3. Create a `.env.local` file in the root directory and add your environment variables:
+### 2. Configure Your Personal Details
 
-```env
-# Example environment variables
-NEXT_PUBLIC_SITE_URL=http://localhost:3000
+1. Open `config/site.config.ts` and update your basic information:
+
+```typescript
+export const siteConfig = {
+  name: "Your Name",
+  title: "Your Professional Title",
+  description: "Your brief bio or tagline",
+  baseUrl: "your-website-url.com",
+  // Add other personal details
+}
 ```
 
-4. Start the development server:
+### 3. Adding Your Content
+
+The `content/` directory is where you manage all your resume information:
+
+```
+content/
+├── personal-details.md     # Your bio and contact information
+├── experience/            # Work experience entries
+│   ├── 001-current-job.md
+│   ├── 002-previous-job.md
+│   └── ...
+├── education/            # Educational background
+│   ├── 001-degree.md
+│   └── ...
+├── skills/              # Technical and soft skills
+│   └── 001-skills.md
+└── projects/            # Notable projects
+    ├── 001-project.md
+    └── ...
+```
+
+#### Content File Format
+
+Each Markdown file should follow this structure:
+
+```markdown
+---
+title: "Position Title"
+company: "Company Name"
+location: "City, Country"
+startDate: "2023-01"
+endDate: "Present"
+order: 1
+---
+
+Your detailed description here...
+
+- Key achievement 1
+- Key achievement 2
+```
+
+### 4. Customizing the Look
+
+#### Theme Colors
+
+1. Open `tailwind.config.ts` to modify the color scheme:
+
+```typescript
+theme: {
+  colors: {
+    primary: '#your-color-code',
+    secondary: '#your-color-code',
+    // Add other colors
+  }
+}
+```
+
+#### Typography
+
+1. Replace fonts in `app/fonts/` with your preferred fonts
+2. Update `app/globals.css` to configure typography settings
+
+### 5. Testing Locally
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-5. Open [http://localhost:3000](http://localhost:3000) with your browser to see your resume.
+Visit `http://localhost:3000` to preview your resume.
 
-## Customizing Your Resume
+### 6. Deployment
 
-### Content Structure
+#### Deploy to Vercel (Recommended)
 
-Place your resume content in the `content/` directory:
+1. Push your repository to GitHub
+2. Visit [Vercel](https://vercel.com)
+3. Import your repository
+4. Click "Deploy"
 
-- `content/education/`: Add your educational background
-- `content/experience/`: Add your work experience
+#### Other Hosting Options
 
-Each file should be in Markdown format with a numerical prefix for ordering (e.g., `001-`, `002-`).
+- Netlify
+- GitHub Pages
+- Any static hosting service
 
-### Dark Mode
+## Advanced Customization
 
-The project includes a dark mode toggle component and a custom hook for managing theme preferences. You can customize the theme colors in the TailwindCSS configuration.
+### Adding New Sections
 
-## Deployment
+1. Create a new directory in `content/` for your section
+2. Add your Markdown files
+3. Update `app/page.tsx` to include the new section in the layout
 
-This project is optimized for deployment on [Vercel](https://vercel.com). To deploy your resume:
+### Custom Components
 
-1. Push your code to GitHub
-2. Import your repository to Vercel
-3. Configure your environment variables
-4. Deploy!
+Create new components in `app/components/` to add special features or layouts.
+
+### SEO Optimization
+
+Modify `app/layout.tsx` to update metadata and SEO settings:
+
+```typescript
+export const metadata = {
+  title: 'Your Name - Professional Title',
+  description: 'Your SEO description',
+  // Add other metadata
+}
+```
+
+## Troubleshooting
+
+Common issues and solutions:
+
+1. **Content not updating**: Clear `.next` cache and restart the dev server
+2. **Styling issues**: Check your Tailwind classes and theme configuration
+3. **Build errors**: Ensure all required fields in your Markdown files are present
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! Please:
+
+1. Fork the repository
+2. Create a feature branch
+3. Submit a Pull Request
+
+## Support
+
+- 📚 [Documentation](link-to-docs)
+- 🐛 [Issue Tracker](link-to-issues)
+- 💬 [Discussions](link-to-discussions)
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Acknowledgments
+---
 
-- Built with [Next.js](https://nextjs.org)
-- Styling with [Tailwind CSS](https://tailwindcss.com)
-- Dark mode implementation inspired by [next-themes](https://github.com/pacocoursey/next-themes)
-
-## Support
-
-If you find this project helpful, please give it a ⭐️ on GitHub!
+⭐️ If this project helps you create your perfect resume, please consider giving it a star on GitHub!
