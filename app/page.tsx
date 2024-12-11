@@ -8,7 +8,7 @@ import {
   Linkedin,
   FileText,
   GraduationCap,
-  Briefcase,
+  Building2,
   Zap,
 } from "lucide-react";
 import { parseMarkdown } from "../lib/markdown";
@@ -203,7 +203,7 @@ export default async function Resume() {
           {experience.length > 0 && (
             <section className="mb-10">
               <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-900 dark:text-gray-100">
-                <Briefcase className="w-6 h-6" />
+                <Building2 className="w-6 h-6" />
                 {siteConfig.texts.experienceSectionHeadlineText}
               </h2>
               <div className="space-y-6">
