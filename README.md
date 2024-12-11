@@ -1,176 +1,187 @@
 # MarkdownResume
 
-MarkdownResume is a modern, hassle-free solution for creating your professional online resume. Instead of wrestling with complex HTML or design tools, simply write your resume content in Markdown - a simple and intuitive format. The project automatically transforms your Markdown content into a polished, responsive website that looks great on all devices.
+MarkdownResume is a modern, hassle-free solution for creating your professional online resume. Simply write your content in Markdown format, and the project will generate a beautifully designed, responsive website with built-in dark/light mode support and multiple color themes.
 
-## Why MarkdownResume?
+## Features
 
-- 📝 **Content-First Approach**: Focus on your resume content using simple Markdown syntax
-- 🎨 **Professional Design**: Comes with a carefully crafted design that works right out of the box
-- 🌗 **Dark/Light Mode**: Built-in theme switching for optimal viewing
-- 📱 **Responsive**: Perfect display on all devices - mobile, tablet, and desktop
-- 🔄 **Easy Updates**: Modify your resume by simply editing Markdown files
-- 🎯 **SEO Optimized**: Great visibility for search engines
-- 🚀 **Modern Tech**: Built with Next.js for optimal performance
+- 🎨 **Multiple Theme Options**: Choose from 7 pre-built color themes (Default, Blue, Purple, Green, Rose, Amber, Teal)
+- 🌗 **Dark/Light Mode**: Automatic theme switching with system preferences support
+- 📱 **Fully Responsive**: Optimized for mobile, tablet, and desktop viewing
+- 📝 **Markdown-Based**: All content is managed through simple Markdown files
+- 🔄 **Real-time Updates**: Changes to content files are immediately reflected
+- 🎯 **SEO Ready**: Built-in metadata management for better search engine visibility
+- 📄 **Legal Compliance**: Integrated support for Legal Notice and Data Privacy Policy pages
 
-## Setting Up Your Resume
+## Content Structure
 
-### 1. Initial Setup
+The resume content is organized in the `content/` directory:
+
+```
+content/
+├── personal-details.md     # Your profile and contact information
+├── summary.md             # Professional summary
+├── experience/           # Work experience entries
+│   ├── 001-current-job.md
+│   └── 002-previous-job.md
+├── education/           # Educational background
+│   └── 001-degree.md
+├── skills.md           # Skills listing
+├── legalnotice.md      # Legal notice page
+└── dataprivacypolicy.md # Privacy policy page
+```
+
+## Setup Guide
+
+### 1. Installation
 
 ```bash
 # Clone the repository
-git clone https://github.com/seeschweiler/markdown-resume.git
-
-# Navigate to the project
+git clone [repository-url]
 cd markdown-resume
 
 # Install dependencies
 npm install
 ```
 
-### 2. Configure Your Personal Details
+### 2. Content Configuration
 
-1. Open `config/site.config.ts` and update your basic information:
-
-```typescript
-export const siteConfig = {
-  name: "Your Name",
-  title: "Your Professional Title",
-  description: "Your brief bio or tagline",
-  baseUrl: "your-website-url.com",
-  // Add other personal details
-}
-```
-
-### 3. Adding Your Content
-
-The `content/` directory is where you manage all your resume information:
-
-```
-content/
-├── personal-details.md     # Your bio and contact information
-├── experience/            # Work experience entries
-│   ├── 001-current-job.md
-│   ├── 002-previous-job.md
-│   └── ...
-├── education/            # Educational background
-│   ├── 001-degree.md
-│   └── ...
-├── skills/              # Technical and soft skills
-│   └── 001-skills.md
-└── projects/            # Notable projects
-    ├── 001-project.md
-    └── ...
-```
-
-#### Content File Format
-
-Each Markdown file should follow this structure:
-
+#### Personal Details (personal-details.md)
 ```markdown
 ---
-title: "Position Title"
-company: "Company Name"
+name: "Your Name"
+role: "Your Professional Title"
+contact:
+  email: "your.email@example.com"
+  phone: "123-456-7890"
 location: "City, Country"
+social:
+  github: "github.com/username"
+  linkedin: "linkedin.com/in/username"
+avatar: "/profile_avatar.png"
+---
+```
+
+#### Experience Entry (experience/001-current-job.md)
+```markdown
+---
+title: "Senior Software Engineer"
+company: "Company Name"
 startDate: "2023-01"
 endDate: "Present"
-order: 1
 ---
 
-Your detailed description here...
-
-- Key achievement 1
-- Key achievement 2
+- Key responsibility
+- Major achievement
+- Notable project
 ```
 
-### 4. Customizing the Look
+#### Skills (skills.md)
+```markdown
+---
+skills:
+  - JavaScript
+  - React
+  - Node.js
+  - TypeScript
+---
+```
 
-#### Theme Colors
+### 3. Theme Configuration
 
-1. Open `tailwind.config.ts` to modify the color scheme:
+Edit `config/site.config.ts`:
 
 ```typescript
-theme: {
-  colors: {
-    primary: '#your-color-code',
-    secondary: '#your-color-code',
-    // Add other colors
+const siteConfig = {
+  activeTheme: "default", // Options: default, blue, purple, green, rose, amber, teal
+  displayThemeSelector: true, // Show/hide theme selector
+  texts: {
+    summarySectionHeadlineText: "Summary",
+    experienceSectionHeadlineText: "Experience",
+    skillsSectionHeadlineText: "Skills",
+    educationSectionHeadlineText: "Education",
+    // ... other section headings
   }
-}
+};
 ```
 
-#### Typography
-
-1. Replace fonts in `app/fonts/` with your preferred fonts
-2. Update `app/globals.css` to configure typography settings
-
-### 5. Testing Locally
+### 4. Development
 
 ```bash
 npm run dev
 ```
 
-Visit `http://localhost:3000` to preview your resume.
+Visit `http://localhost:3000` to see your resume.
 
-### 6. Deployment
+### 5. Building for Production
 
-#### Deploy to Vercel (Recommended)
+```bash
+npm run build
+npm start
+```
 
-1. Push your repository to GitHub
-2. Visit [Vercel](https://vercel.com)
-3. Import your repository
-4. Click "Deploy"
+## Customization
 
-#### Other Hosting Options
+### Available Themes
 
-- Netlify
-- GitHub Pages
-- Any static hosting service
+- `default`: Classic professional look
+- `blue`: Modern corporate style
+- `purple`: Creative and bold
+- `green`: Environmental and fresh
+- `rose`: Warm and engaging
+- `amber`: Energetic and vibrant
+- `teal`: Balanced and professional
 
-## Advanced Customization
+### Dark Mode
 
-### Adding New Sections
+- Automatically detects system preference
+- Manual toggle available
+- Persists user preference in localStorage
 
-1. Create a new directory in `content/` for your section
-2. Add your Markdown files
-3. Update `app/page.tsx` to include the new section in the layout
+### SEO Configuration
 
-### Custom Components
-
-Create new components in `app/components/` to add special features or layouts.
-
-### SEO Optimization
-
-Modify `app/layout.tsx` to update metadata and SEO settings:
+Update `app/layout.tsx`:
 
 ```typescript
 export const metadata = {
-  title: 'Your Name - Professional Title',
-  description: 'Your SEO description',
-  // Add other metadata
+  title: 'Your Name - Professional Resume',
+  description: 'Your professional background and experience',
+  // Add other metadata as needed
 }
+```
+
+## Technical Details
+
+- **Framework**: Next.js 15.0
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS with @tailwindcss/typography
+- **Markdown Processing**: markdown-it, gray-matter
+- **Icons**: Lucide React
+- **State Management**: React Context API
+
+## Environment Variables
+
+Create `.env.local`:
+
+```env
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
 ```
 
 ## Troubleshooting
 
-Common issues and solutions:
+1. **Content Not Updating**
+   - Clear `.next` cache directory
+   - Restart development server
+   - Check file naming conventions
 
-1. **Content not updating**: Clear `.next` cache and restart the dev server
-2. **Styling issues**: Check your Tailwind classes and theme configuration
-3. **Build errors**: Ensure all required fields in your Markdown files are present
+2. **Theme Issues**
+   - Verify theme name in site.config.ts
+   - Check for proper CSS variable inheritance
+   - Ensure dark mode configuration
 
-## Contributing
-
-Contributions are welcome! Please:
-
-1. Fork the repository
-2. Create a feature branch
-3. Submit a Pull Request
-
-## Support
-
-- 📚 [Documentation](link-to-docs)
-- 🐛 [Issue Tracker](link-to-issues)
-- 💬 [Discussions](link-to-discussions)
+3. **Build Errors**
+   - Verify all required frontmatter in markdown files
+   - Check for proper file structure
+   - Validate image paths and formats
 
 ## License
 

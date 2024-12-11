@@ -275,13 +275,9 @@ export default async function Resume() {
         </div>
 
         <footer className="bg-[var(--theme-footer-primary)] text-theme-text-primary text-center py-4 transition-colors duration-200">
-          <a
-            href="#"
-            className="inline-flex items-center text-teal-600 dark:text-teal-400 hover:text-teal-700 dark:hover:text-teal-300 transition-colors"
-          >
-            <FileText className="w-5 h-5 mr-2" />
-            {siteConfig.texts.downloadLinkText}
-          </a>
+          <p className="text-gray-600 dark:text-gray-300 italic">
+            {siteConfig.texts.statementText}
+          </p>
         </footer>
 
         <footer className="bg-[var(--theme-footer-secondary)] text-center py-3 transition-colors duration-200">

@@ -13,7 +13,7 @@ interface SiteConfig {
     experienceSectionHeadlineText: string;
     skillsSectionHeadlineText: string;
     educationSectionHeadlineText: string;
-    downloadLinkText: string;
+    statementText: string;
     legalNoticeLinkText: string;
     dataPrivacyPolicyLinkText: string;
     backLinkText: string;
@@ -28,7 +28,8 @@ const siteConfig: SiteConfig = {
     experienceSectionHeadlineText: "Experience",
     skillsSectionHeadlineText: "Skills",
     educationSectionHeadlineText: "Education",
-    downloadLinkText: "Download Full Resume",
+    statementText:
+      "Bridging the gap between technology and business to drive meaningful impact.",
     legalNoticeLinkText: "Legal Notice",
     dataPrivacyPolicyLinkText: "Data Privacy Policy",
     backLinkText: "Back to Resume",
