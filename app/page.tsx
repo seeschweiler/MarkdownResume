@@ -26,9 +26,10 @@ const poppins = Poppins({
 
 async function getPersonalDetails() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/personal-details`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/personal-details?t=${Date.now()}`,
     {
-      next: { revalidate: 3600 },
+      cache: "no-store",
+      next: { revalidate: 0 },
     }
   );
   if (!res.ok) throw new Error("Failed to fetch personal details");
@@ -135,54 +136,70 @@ export default async function Resume() {
           </div>
 
           <header className="text-center mb-10 flex flex-col items-center">
-            <div className="w-32 h-32 mb-4">
-              <Image
-                src={personalDetails.avatar}
-                alt={personalDetails.name}
-                width={128}
-                height={128}
-                className="avatar-image object-cover w-full h-full"
-              />
-            </div>
-            <h1 className="text-4xl sm:text-5xl font-bold text-theme-text-primary mb-2">
-              {personalDetails.name}
-            </h1>
-            <h2 className="text-xl sm:text-2xl text-theme-text-accent font-medium">
-              {personalDetails.role}
-            </h2>
+            {personalDetails.avatar && (
+              <div className="w-32 h-32 mb-4">
+                <Image
+                  src={personalDetails.avatar}
+                  alt={personalDetails.name || ""}
+                  width={128}
+                  height={128}
+                  className="avatar-image object-cover w-full h-full"
+                />
+              </div>
+            )}
+            {personalDetails.name && (
+              <h1 className="text-4xl sm:text-5xl font-bold text-theme-text-primary mb-2">
+                {personalDetails.name}
+              </h1>
+            )}
+            {personalDetails.role && (
+              <h2 className="text-xl sm:text-2xl text-theme-text-accent font-medium">
+                {personalDetails.role}
+              </h2>
+            )}
           </header>
 
           <section className="mb-10 flex flex-wrap justify-center gap-4 text-theme-text-secondary">
-            <div className="flex items-center">
-              <Mail className="w-5 h-5 mr-2 text-teal-500 dark:text-teal-400" />
-              <span>{personalDetails.contact.email}</span>
-            </div>
-            <div className="flex items-center">
-              <Phone className="w-5 h-5 mr-2 text-teal-500 dark:text-teal-400" />
-              <span>{personalDetails.contact.phone}</span>
-            </div>
-            <div className="flex items-center">
-              <MapPin className="w-5 h-5 mr-2 text-teal-500 dark:text-teal-400" />
-              <span>{personalDetails.location}</span>
-            </div>
-            <div className="flex items-center">
-              <Github className="w-5 h-5 mr-2 text-teal-500 dark:text-teal-400" />
-              <a
-                href={`https://${personalDetails.social.github}`}
-                className="hover:text-teal-600 dark:hover:text-teal-300 transition-colors"
-              >
-                {personalDetails.social.github}
-              </a>
-            </div>
-            <div className="flex items-center">
-              <Linkedin className="w-5 h-5 mr-2 text-teal-500 dark:text-teal-400" />
-              <a
-                href={`https://${personalDetails.social.linkedin}`}
-                className="hover:text-teal-600 dark:hover:text-teal-300 transition-colors"
-              >
-                {personalDetails.social.linkedin}
-              </a>
-            </div>
+            {personalDetails.contact?.email && (
+              <div className="flex items-center">
+                <Mail className="w-5 h-5 mr-2 text-teal-500 dark:text-teal-400" />
+                <span>{personalDetails.contact.email}</span>
+              </div>
+            )}
+            {personalDetails.contact?.phone && (
+              <div className="flex items-center">
+                <Phone className="w-5 h-5 mr-2 text-teal-500 dark:text-teal-400" />
+                <span>{personalDetails.contact.phone}</span>
+              </div>
+            )}
+            {personalDetails.location && (
+              <div className="flex items-center">
+                <MapPin className="w-5 h-5 mr-2 text-teal-500 dark:text-teal-400" />
+                <span>{personalDetails.location}</span>
+              </div>
+            )}
+            {personalDetails.social?.github && (
+              <div className="flex items-center">
+                <Github className="w-5 h-5 mr-2 text-teal-500 dark:text-teal-400" />
+                <a
+                  href={`https://${personalDetails.social.github}`}
+                  className="hover:text-teal-600 dark:hover:text-teal-300 transition-colors"
+                >
+                  {personalDetails.social.github}
+                </a>
+              </div>
+            )}
+            {personalDetails.social?.linkedin && (
+              <div className="flex items-center">
+                <Linkedin className="w-5 h-5 mr-2 text-teal-500 dark:text-teal-400" />
+                <a
+                  href={`https://${personalDetails.social.linkedin}`}
+                  className="hover:text-teal-600 dark:hover:text-teal-300 transition-colors"
+                >
+                  {personalDetails.social.linkedin}
+                </a>
+              </div>
+            )}
           </section>
 
           {summary?.content && (
