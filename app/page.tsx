@@ -12,17 +12,11 @@ import {
   Zap,
 } from "lucide-react";
 import { parseMarkdown } from "../lib/markdown";
-import type { PersonalDetails } from "../types/personal-details";
-import ReactMarkdown from "react-markdown";
+
 import { DarkModeToggle } from "./components/DarkModeToggle";
 import { getEducation } from "./utils/education";
-import type { Education } from "./types/education";
-import siteConfig from "@/config/site.config";
 
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-});
+import siteConfig from "@/config/site.config";
 
 async function getPersonalDetails() {
   const res = await fetch(
