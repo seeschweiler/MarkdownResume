@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { Education } from "../types/education";
 
 const educationDirectory = path.join(process.cwd(), "content/education");
 
