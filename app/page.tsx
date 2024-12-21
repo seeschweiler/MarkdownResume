@@ -14,7 +14,7 @@ import { parseMarkdown } from "../lib/markdown";
 import { Metadata } from "next";
 
 import { DarkModeToggle } from "./components/DarkModeToggle";
-import { getEducation } from "./utils/education";
+import { getEducation } from "@/lib/education";
 
 import siteConfig from "@/config/site.config";
 

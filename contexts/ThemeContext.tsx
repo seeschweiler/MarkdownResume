@@ -8,29 +8,27 @@ import {
   useEffect,
   useCallback,
 } from "react";
-import defaultTheme from "@/themes/default.json";
-import blueTheme from "@/themes/blue.json";
-import purpleTheme from "@/themes/purple.json";
-import greenTheme from "@/themes/green.json";
-import roseTheme from "@/themes/rose.json";
-import amberTheme from "@/themes/amber.json";
-import tealTheme from "@/themes/teal.json";
+import { getThemeColors } from "@/lib/theme";
 import siteConfig from "@/config/site.config";
 
+// Get the default theme type once
+const defaultTheme = getThemeColors();
+type ThemeShape = typeof defaultTheme;
+
 const themes = {
-  default: defaultTheme,
-  blue: blueTheme,
-  purple: purpleTheme,
-  green: greenTheme,
-  rose: roseTheme,
-  amber: amberTheme,
-  teal: tealTheme,
+  default: getThemeColors("default"),
+  blue: getThemeColors("blue"),
+  purple: getThemeColors("purple"),
+  green: getThemeColors("green"),
+  rose: getThemeColors("rose"),
+  amber: getThemeColors("amber"),
+  teal: getThemeColors("teal"),
 } as const;
 
 type ThemeType = keyof typeof themes;
 
 type ThemeContextType = {
-  theme: typeof defaultTheme;
+  theme: ThemeShape;
   activeTheme: ThemeType;
   setActiveTheme: (theme: ThemeType) => void;
 };

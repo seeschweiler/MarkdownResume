@@ -19,6 +19,11 @@ const themes = {
   teal: tealTheme,
 } as const;
 
-export function getThemeColors(): ThemeColors {
+type ThemeName = keyof typeof themes;
+
+export function getThemeColors(themeName?: ThemeName): ThemeColors {
+  if (themeName && themes[themeName]) {
+    return themes[themeName];
+  }
   return themes[siteConfig.activeTheme] || defaultTheme;
 }
