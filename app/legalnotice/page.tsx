@@ -1,6 +1,11 @@
+import { Metadata } from "next";
 import { DarkModeToggle } from "../components/DarkModeToggle";
 import { parseMarkdown } from "../../lib/markdown";
 import siteConfig from "@/config/site.config";
+
+export const metadata: Metadata = {
+  robots: "noindex",
+};
 
 async function getLegalNotice() {
   const res = await fetch(

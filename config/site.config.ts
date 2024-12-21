@@ -17,6 +17,11 @@ interface SiteConfig {
     legalNoticeLinkText: string;
     dataPrivacyPolicyLinkText: string;
     backLinkText: string;
+    metadataFallbackName: string;
+    metadataFallbackRole: string;
+    metadataDescriptionPrefix: string;
+    metadataDescriptionSuffix: string;
+    metadataKeywords: string[];
   };
 }
 
@@ -33,6 +38,18 @@ const siteConfig: SiteConfig = {
     legalNoticeLinkText: "Legal Notice",
     dataPrivacyPolicyLinkText: "Data Privacy Policy",
     backLinkText: "Back to Resume",
+    metadataFallbackName: "Professional Resume",
+    metadataFallbackRole: "Professional Profile",
+    metadataDescriptionPrefix: "Professional resume",
+    metadataDescriptionSuffix:
+      "View professional experience, skills, and education",
+    metadataKeywords: [
+      "resume",
+      "curriculum vitae",
+      "cv",
+      "professional experience",
+      "skills",
+    ],
   },
 };
 

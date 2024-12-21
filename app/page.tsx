@@ -11,6 +11,7 @@ import {
   Zap,
 } from "lucide-react";
 import { parseMarkdown } from "../lib/markdown";
+import { Metadata } from "next";
 
 import { DarkModeToggle } from "./components/DarkModeToggle";
 import { getEducation } from "./utils/education";
@@ -101,6 +102,104 @@ async function hasDataPrivacyPolicy() {
   } catch {
     return false;
   }
+}
+
+async function getPersonalDetailsForMetadata() {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/personal-details`,
+      {
+        cache: "no-store",
+        next: { revalidate: 0 },
+      }
+    );
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const personalDetails = await getPersonalDetailsForMetadata();
+
+  // Safer fallbacks for all values using config
+  const name =
+    personalDetails?.name?.trim() || siteConfig.texts.metadataFallbackName;
+  const role =
+    personalDetails?.role?.trim() || siteConfig.texts.metadataFallbackRole;
+  const description = `${siteConfig.texts.metadataDescriptionPrefix}${
+    name !== siteConfig.texts.metadataFallbackName ? ` of ${name}` : ""
+  }${role !== siteConfig.texts.metadataFallbackRole ? ` - ${role}` : ""}. ${
+    siteConfig.texts.metadataDescriptionSuffix
+  }.`;
+
+  // Safely get skills array
+  const skills = Array.isArray(personalDetails?.skills?.skills)
+    ? personalDetails.skills.skills
+    : [];
+
+  // Safe image URL checking
+  const avatarUrl =
+    personalDetails?.avatar &&
+    typeof personalDetails.avatar === "string" &&
+    personalDetails.avatar.startsWith("http")
+      ? personalDetails.avatar
+      : null;
+
+  return {
+    title:
+      name !== siteConfig.texts.metadataFallbackName
+        ? `${name} - ${role}`
+        : siteConfig.texts.metadataFallbackName,
+    description,
+    keywords: [
+      name !== siteConfig.texts.metadataFallbackName ? name : null,
+      role !== siteConfig.texts.metadataFallbackRole ? role : null,
+      ...siteConfig.texts.metadataKeywords,
+      ...skills,
+    ].filter(Boolean),
+    authors:
+      name !== siteConfig.texts.metadataFallbackName ? [{ name }] : undefined,
+    creator: name !== siteConfig.texts.metadataFallbackName ? name : undefined,
+    openGraph: {
+      type: "profile",
+      title:
+        name !== siteConfig.texts.metadataFallbackName
+          ? `${name} - Professional Resume`
+          : siteConfig.texts.metadataFallbackName,
+      description,
+      ...(avatarUrl && { images: [avatarUrl] }),
+      profile: {
+        ...(name !== siteConfig.texts.metadataFallbackName && {
+          firstName: name.split(" ")[0],
+          lastName: name.split(" ").slice(1).join(" "),
+          username: name.toLowerCase().replace(/\s/g, ""),
+        }),
+        ...(role !== siteConfig.texts.metadataFallbackRole && { role }),
+      },
+    },
+    twitter: {
+      card: "summary",
+      title:
+        name !== siteConfig.texts.metadataFallbackName
+          ? `${name} - ${role}`
+          : siteConfig.texts.metadataFallbackName,
+      description,
+      ...(avatarUrl && { images: [avatarUrl] }),
+    },
+    formatDetection: {
+      telephone: true,
+      email: true,
+      address: true,
+    },
+    metadataBase: new URL(
+      process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
+    ),
+    alternates: {
+      canonical: "/",
+    },
+  };
 }
 
 export default async function Resume() {
