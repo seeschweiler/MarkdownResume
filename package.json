@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@next/font": "^14.2.15",
     "@types/markdown-it": "^14.1.2",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.468.0",
