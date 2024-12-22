@@ -1,7 +1,7 @@
 import { SiteConfig } from "@/types/site-config";
 
 const siteConfig: SiteConfig = {
-  activeTheme: "default",
+  activeTheme: "blue",
   displayThemeSelector: false,
   texts: {
     summarySectionHeadlineText: "Summary",
