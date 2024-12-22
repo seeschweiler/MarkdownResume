@@ -1,4 +1,4 @@
-![MarkdownResume Header](./header.png)
+![MarkdownResume Header](./public/header.png)
 
 
 # MarkdownResume
