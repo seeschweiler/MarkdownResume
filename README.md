@@ -238,21 +238,106 @@ Note: All markdown files support standard markdown syntax including:
 
 ### 3. Theme Configuration
 
-Edit `config/site.config.ts`:
+The application includes a comprehensive theming system that supports both light and dark modes, along with multiple color schemes.
+
+#### Basic Theme Setup
+
+Edit `config/site.config.ts` to configure your theme preferences:
 
 ```typescript
 const siteConfig = {
-  activeTheme: "default", // Options: default, blue, purple, green, rose, amber, teal
-  displayThemeSelector: true, // Show/hide theme selector
+  activeTheme: "default", // Choose your default theme
+  displayThemeSelector: true, // Enable/disable theme selector in UI
   texts: {
+    // Section headings customization
     summarySectionHeadlineText: "Summary",
     experienceSectionHeadlineText: "Experience",
     skillsSectionHeadlineText: "Skills",
     educationSectionHeadlineText: "Education",
-    // ... other section headings
   }
 };
 ```
+
+#### Available Color Themes
+
+The application offers 7 carefully crafted color themes, each with light and dark variants:
+
+- `default`: Professional gray-blue tones
+- `blue`: Modern corporate blues
+- `purple`: Creative and bold purples
+- `green`: Fresh nature-inspired greens
+- `rose`: Warm and engaging pink tones
+- `amber`: Energetic yellow-orange palette
+- `teal`: Balanced blue-green combination
+
+Each theme includes a complete color system defining:
+- Page background
+- Primary/Secondary backgrounds
+- Footer styles
+- Text colors (primary, secondary, accent)
+- Border colors
+- Button states (normal, hover)
+
+#### Theme Structure
+
+Themes are defined in JSON files under the `themes/` directory. Each theme follows this structure:
+
+```json
+{
+  "name": "Theme Name",
+  "light": {
+    "page": { "background": "#color" },
+    "background": {
+      "primary": "#color",
+      "secondary": "#color"
+    },
+    "footer": {
+      "primary": "#color",
+      "secondary": "#color"
+    },
+    "text": {
+      "primary": "#color",
+      "secondary": "#color",
+      "accent": "#color"
+    },
+    "border": { "primary": "#color" },
+    "button": {
+      "background": "#color",
+      "text": "#color",
+      "hover": "#color"
+    }
+  },
+  "dark": {
+    // Same structure as light, with dark mode colors
+  }
+}
+```
+
+#### CSS Implementation
+
+The theme system uses CSS custom properties (variables) for dynamic color application. These are defined in `app/globals.css`:
+
+```css
+:root {
+  --theme-bg-primary: #ffffff;
+  --theme-bg-secondary: #f3f4f6;
+  /* ... other theme variables ... */
+}
+
+.dark {
+  --theme-bg-primary: #1f2937;
+  --theme-bg-secondary: #111827;
+  /* ... dark mode variables ... */
+}
+```
+
+#### Dark Mode Support
+
+The theme system includes built-in dark mode support:
+- Automatically detects system color scheme preference
+- Provides manual toggle via the UI
+- Persists user preference in localStorage
+- Smooth transitions between modes
 
 ### 4. Development
 
@@ -262,32 +347,7 @@ npm run dev
 
 Visit `http://localhost:3000` to see your resume.
 
-### 5. Building for Production
-
-```bash
-npm run build
-npm start
-```
-
-## Customization
-
-### Available Themes
-
-- `default`: Classic professional look
-- `blue`: Modern corporate style
-- `purple`: Creative and bold
-- `green`: Environmental and fresh
-- `rose`: Warm and engaging
-- `amber`: Energetic and vibrant
-- `teal`: Balanced and professional
-
-### Dark Mode
-
-- Automatically detects system preference
-- Manual toggle available
-- Persists user preference in localStorage
-
-### SEO Configuration
+### 4. SEO Configuration
 
 Update `app/layout.tsx`:
 
