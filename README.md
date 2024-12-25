@@ -349,15 +349,72 @@ Visit `http://localhost:3000` to see your resume.
 
 ### 4. SEO Configuration
 
-Update `app/layout.tsx`:
+The application includes comprehensive SEO support through Next.js metadata configuration and customizable settings in `site.config.ts`.
+
+#### Advanced SEO Configuration
+
+The `site.config.ts` file provides extensive SEO customization options:
 
 ```typescript
-export const metadata = {
-  title: 'Your Name - Professional Resume',
-  description: 'Your professional background and experience',
-  // Add other metadata as needed
-}
+const siteConfig = {
+  // ... other config options ...
+  texts: {
+    // SEO Metadata Fallbacks
+    metadataFallbackName: "Professional Resume",
+    metadataFallbackRole: "Professional Profile",
+    
+    // SEO Description Components
+    metadataDescriptionPrefix: "Professional resume",
+    metadataDescriptionSuffix: "View professional experience, skills, and education",
+    
+    // SEO Keywords
+    metadataKeywords: [
+      "resume",
+      "curriculum vitae",
+      "cv",
+      "professional experience",
+      "skills",
+    ],
+  }
+};
 ```
+
+#### Metadata Generation
+
+The application automatically generates SEO-friendly metadata using:
+1. Content from your personal-details.md
+2. Fallback values from site.config.ts
+3. Dynamic description construction
+
+Example of generated metadata:
+- Title: "{name} - {role}" or fallback if not available
+- Description: Combines prefix + name + role + suffix
+- Keywords: Customizable through config
+
+
+#### SEO Best Practices Implementation
+
+The application follows SEO best practices by:
+- Using semantic HTML structure
+- Providing proper heading hierarchy
+- Including meta description and keywords
+- Supporting social media sharing metadata
+- Implementing proper URL structure
+- Ensuring mobile responsiveness
+
+#### Customizing SEO Content
+
+To customize SEO settings:
+
+1. Update `site.config.ts` metadata texts:
+   - Modify fallback values
+   - Adjust description components
+   - Update keyword list
+
+2. Ensure personal-details.md includes:
+   - Accurate name and role
+   - Professional title
+   - Current position
 
 ## Technical Details
 
@@ -376,22 +433,9 @@ Create `.env.local`:
 NEXT_PUBLIC_BASE_URL=http://localhost:3000
 ```
 
-## Troubleshooting
+## Deployment
 
-1. **Content Not Updating**
-   - Clear `.next` cache directory
-   - Restart development server
-   - Check file naming conventions
 
-2. **Theme Issues**
-   - Verify theme name in site.config.ts
-   - Check for proper CSS variable inheritance
-   - Ensure dark mode configuration
-
-3. **Build Errors**
-   - Verify all required frontmatter in markdown files
-   - Check for proper file structure
-   - Validate image paths and formats
 
 ## License
 
