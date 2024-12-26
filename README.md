@@ -57,11 +57,8 @@ npm install
 # Create required environment file
 echo "NEXT_PUBLIC_BASE_URL=http://localhost:3000" > .env.local
 
-# Create the content directory structure
-mkdir -p content/experience content/education
-```
-
 #### Required Directory Structure
+
 Create the following files in your content directory:
 
 ```
