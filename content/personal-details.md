@@ -8,5 +8,7 @@ location: "San Francisco, CA"
 social:
   github: "github.com/johndoe"
   linkedin: "linkedin.com/in/johndoe"
+  twitter: "twitter.com/johndoe"
+  youtube: "youtube.com/@johndoe"
 avatar: "/profile_avatar.png"
 --- 

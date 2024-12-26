@@ -9,6 +9,8 @@ export interface PersonalDetails {
   social?: {
     github?: string;
     linkedin?: string;
+    twitter?: string;
+    youtube?: string;
   };
   avatar?: string;
 }
