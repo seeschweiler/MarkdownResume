@@ -313,23 +313,28 @@ Themes are defined in JSON files under the `themes/` directory. Each theme follo
 }
 ```
 
-#### CSS Implementation
+#### Theme Selector
 
-The theme system uses CSS custom properties (variables) for dynamic color application. These are defined in `app/globals.css`:
+The application includes a built-in theme selector that allows users to switch between themes in real-time. To enable the theme selector:
 
-```css
-:root {
-  --theme-bg-primary: #ffffff;
-  --theme-bg-secondary: #f3f4f6;
-  /* ... other theme variables ... */
-}
-
-.dark {
-  --theme-bg-primary: #1f2937;
-  --theme-bg-secondary: #111827;
-  /* ... dark mode variables ... */
-}
+1. Update `site.config.ts`:
+```typescript
+const siteConfig = {
+  displayThemeSelector: true,  // Set to true to enable the theme selector
+  // ... other config options
+};
 ```
+
+When enabled, a floating theme selector appears in the bottom right corner of the resume:
+
+![Theme Selector](./public/theme-selector.png)
+
+The theme selector provides:
+- Visual preview of each theme's colors
+- Real-time theme switching
+- Persistent theme selection (saved to localStorage)
+- Smooth transition animations
+- Accessibility support with keyboard navigation
 
 #### Dark Mode Support
 
@@ -416,15 +421,6 @@ To customize SEO settings:
    - Professional title
    - Current position
 
-## Technical Details
-
-- **Framework**: Next.js 15.0
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS with @tailwindcss/typography
-- **Markdown Processing**: markdown-it, gray-matter
-- **Icons**: Lucide React
-- **State Management**: React Context API
-
 ## Environment Variables
 
 Create `.env.local`:
@@ -435,7 +431,67 @@ NEXT_PUBLIC_BASE_URL=http://localhost:3000
 
 ## Deployment
 
+The application is optimized for deployment on various platforms, with special consideration for Vercel deployment.
 
+### Vercel Deployment (Recommended)
+
+1. Push your repository to GitHub
+2. Visit [Vercel](https://vercel.com) and import your repository
+3. Configure the following settings:
+   - Framework Preset: Next.js
+   - Root Directory: ./
+   - Build Command: `npm run build`
+   - Output Directory: .next
+
+#### Environment Variables
+
+Important: Set up the following environment variable in your Vercel project settings:
+
+```bash
+NEXT_PUBLIC_BASE_URL=https://your-domain.com  # Replace with your actual domain
+```
+
+Note: During the build process on Vercel, this variable should match your production domain for proper SEO metadata generation and API endpoints.
+
+### Alternative Deployment Options
+
+#### Self-hosted Deployment
+
+1. Build the application:
+```bash
+npm run build
+```
+
+2. Start the production server:
+```bash
+npm start
+```
+
+3. Set up environment variables:
+```bash
+# .env.production
+NEXT_PUBLIC_BASE_URL=https://your-domain.com
+```
+
+#### Docker Deployment
+
+A Dockerfile is provided for containerized deployment:
+
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY . .
+RUN npm install
+RUN npm run build
+EXPOSE 3000
+CMD ["npm", "start"]
+```
+
+Build and run the container:
+```bash
+docker build -t markdown-resume .
+docker run -p 3000:3000 -e NEXT_PUBLIC_BASE_URL=https://your-domain.com markdown-resume
+```
 
 ## License
 
