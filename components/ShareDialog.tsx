@@ -101,29 +101,31 @@ export function ShareDialog() {
             <div className="inline-block align-bottom bg-theme-bg-primary rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
               <div className="bg-theme-bg-primary px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div className="p-6 relative">
-                  <h2 className="text-lg font-semibold text-theme-text-primary mb-4">
-                    {siteConfig.texts.shareDialogHeadlineText}
-                  </h2>
-                  <button
-                    onClick={() => setIsOpen(false)}
-                    className="absolute top-4 right-4 text-theme-text-secondary hover:text-theme-text-primary transition-colors"
-                    aria-label="Close dialog"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
+                  <div className="flex items-center mb-4">
+                    <h2 className="text-lg font-semibold text-theme-text-primary flex-1">
+                      {siteConfig.texts.shareDialogHeadlineText}
+                    </h2>
+                    <button
+                      onClick={() => setIsOpen(false)}
+                      className="text-theme-text-secondary hover:text-theme-text-primary transition-colors ml-4"
+                      aria-label="Close dialog"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </button>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </button>
+                  </div>
                   <div className="flex mb-4">
                     <button
                       onClick={() => setActiveTab("link")}
