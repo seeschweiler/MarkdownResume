@@ -8,6 +8,7 @@ export interface SiteConfig {
     | "amber"
     | "teal";
   displayThemeSelector: boolean;
+  displayShareDialog: boolean;
   texts: {
     summarySectionHeadlineText: string;
     experienceSectionHeadlineText: string;
@@ -22,5 +23,8 @@ export interface SiteConfig {
     metadataDescriptionPrefix: string;
     metadataDescriptionSuffix: string;
     metadataKeywords: string[];
+    shareDialogHeadlineText: string;
+    shareDialogEmailSubject: string;
+    shareDialogEmailBody: string;
   };
 }

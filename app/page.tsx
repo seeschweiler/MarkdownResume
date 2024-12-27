@@ -16,6 +16,7 @@ import { parseMarkdown } from "../lib/markdown";
 import { Metadata } from "next";
 
 import { DarkModeToggle } from "@/components/DarkModeToggle";
+import { ShareDialog } from "@/components/ShareDialog";
 import { getEducation } from "@/lib/education";
 
 import siteConfig from "@/config/site.config";
@@ -225,7 +226,8 @@ export default async function Resume() {
     >
       <main className="max-w-4xl mx-auto bg-theme-bg-primary rounded-xl shadow-lg overflow-hidden transition-colors duration-200">
         <div className="p-8 sm:p-12">
-          <div className="flex justify-end mb-4">
+          <div className="flex justify-end mb-4 space-x-2">
+            {siteConfig.displayShareDialog && <ShareDialog />}
             <DarkModeToggle />
           </div>
 

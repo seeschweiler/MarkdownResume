@@ -3,6 +3,7 @@ import { SiteConfig } from "@/types/site-config";
 const siteConfig: SiteConfig = {
   activeTheme: "default",
   displayThemeSelector: false,
+  displayShareDialog: true,
   texts: {
     summarySectionHeadlineText: "Summary",
     experienceSectionHeadlineText: "Experience",
@@ -25,6 +26,9 @@ const siteConfig: SiteConfig = {
       "professional experience",
       "skills",
     ],
+    shareDialogHeadlineText: "Share Resume",
+    shareDialogEmailSubject: "Check out this resume",
+    shareDialogEmailBody: "I thought you might be interested in this resume:",
   },
 };
 
