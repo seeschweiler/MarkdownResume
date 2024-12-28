@@ -15,7 +15,7 @@ MarkdownResume is a modern, hassle-free solution for creating your professional 
 - 🔄 **Real-time Updates**: Changes to content files are immediately reflected
 - 🎯 **SEO Ready**: Built-in metadata management for better search engine visibility
 - 📄 **Legal Compliance**: Integrated support for Legal Notice and Data Privacy Policy pages
-- 🔗 **Share Options**: Built-in sharing functionality with link, QR code, and email options
+- 🔗 **Share Options**: Comprehensive sharing functionality with link, QR code, email, and vCard options
 
 ## Content Structure
 
@@ -153,12 +153,14 @@ const siteConfig = {
   activeTheme: "default", // Choose your default theme
   displayThemeSelector: true, // Enable/disable theme selector in UI
   displayShareDialog: true, // Enable/disable share dialog
+  displayStatement: true, // Enable/disable personal statement
   texts: {
     // Section headings customization
     summarySectionHeadlineText: "Summary",
     experienceSectionHeadlineText: "Experience",
     skillsSectionHeadlineText: "Skills",
     educationSectionHeadlineText: "Education",
+    statementText: "Your personal statement or motto",
     // Share dialog texts
     shareDialogHeadlineText: "Share Resume",
     shareDialogEmailSubject: "Check out this resume",
@@ -175,7 +177,7 @@ The application includes a comprehensive sharing system that allows visitors to 
 
 #### Share Dialog Features
 
-The share dialog provides three sharing methods:
+The share dialog provides four sharing methods:
 
 1. **Link Sharing**:
    - Displays the current URL
@@ -192,15 +194,28 @@ The share dialog provides three sharing methods:
    - Pre-filled subject and body
    - Customizable message template
 
-To enable/disable the share dialog, update `site.config.ts`:
+4. **vCard Download**:
+   - Download contact information as a virtual business card
+   - Compatible with most contact management systems
+   - Includes name, email, phone, and website details
+
+To configure the share dialog, update `site.config.ts`:
 
 ```typescript
 const siteConfig = {
-  displayShareDialog: true,  // Set to true to enable the share dialog
+  displayShareDialog: true,  // Enable/disable the main share dialog
+  displayShareDialogTabLink: true,  // Enable/disable link sharing tab
+  displayShareDialogEmailLink: true,  // Enable/disable email sharing tab
+  displayShareDialogQRCodeLink: true,  // Enable/disable QR code tab
+  displayShareDialogDownloadLink: true,  // Enable/disable vCard download tab
   texts: {
     shareDialogHeadlineText: "Share Resume",
     shareDialogEmailSubject: "Check out this resume",
     shareDialogEmailBody: "I thought you might be interested in this resume:",
+    shareDialogLinkTabText: "Copy the direct link to share this resume with others",
+    shareDialogQRCodeTabText: "Scan or copy the QR code to open this resume on a mobile device",
+    shareDialogEmailTabText: "Send this resume directly via email",
+    shareDialogVCardTabText: "Download contact information as a virtual business card (vCard)"
   }
 };
 ```
