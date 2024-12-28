@@ -18,6 +18,13 @@ async function getPersonalDetails() {
   return res.json();
 }
 
+// Add interface for tab type
+interface ShareTab {
+  id: string;
+  label: string;
+  content: JSX.Element;
+}
+
 export function ShareDialog() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("link");
@@ -115,7 +122,7 @@ export function ShareDialog() {
     }
   };
 
-  // Create an array of available tabs based on config
+  // Create an array of available tabs based on config with proper typing
   const availableTabs = [
     siteConfig.displayShareDialogTabLink && {
       id: "link",
@@ -191,7 +198,7 @@ export function ShareDialog() {
         </div>
       ),
     },
-  ].filter(Boolean);
+  ].filter((tab): tab is ShareTab => Boolean(tab)); // Type predicate to filter out false values
 
   // Set initial active tab to first available tab
   useEffect(() => {
