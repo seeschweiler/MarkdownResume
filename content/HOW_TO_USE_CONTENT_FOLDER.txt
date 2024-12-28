@@ -1,0 +1,147 @@
+# How to Use the Content Folder
+
+This guide explains how to structure and write content for your MarkdownResume website using markdown files.
+
+## Directory Structure
+
+Your content should be organized in the following structure:
+
+content/
+├── personal-details.md    # Required: Basic information
+├── summary.md            # Required: Professional summary
+├── skills.md            # Required: Technical skills
+├── experience/          # Required: Work experience entries
+│   ├── 001-current-job.md
+│   └── 002-previous-job.md
+├── education/          # Required: Educational background
+│   └── 001-bachelor-computer-science.md
+├── legalnotice.md     # Optional: Legal notice
+└── dataprivacypolicy.md # Optional: Privacy policy
+
+## Required Files
+
+### 1. personal-details.md
+
+This file contains your basic information and contact details. Use the following format:
+
+---
+name: "Your Name"
+role: "Your Professional Title"
+contact:
+  email: "your.email@example.com"
+  phone: "(123) 456-7890"
+location: "City, Country"
+social:
+  github: "github.com/username"
+  linkedin: "linkedin.com/in/username"
+  twitter: "twitter.com/username"  # Optional
+  youtube: "youtube.com/@username" # Optional
+avatar: "/profile_avatar.png"  # Place image in public directory
+---
+
+### 2. summary.md
+
+Write your professional summary/overview. Format:
+
+Your professional summary text goes here. This can include multiple paragraphs and supports full markdown formatting.
+
+### Optional Subheadings
+
+- Bullet points
+- Are supported
+- For better organization
+
+### 3. skills.md
+
+List your technical and professional skills:
+
+---
+skills:
+  - JavaScript
+  - React
+  - Node.js
+  - TypeScript
+  - AWS
+  - Docker
+  - Git
+  - Agile Methodologies
+---
+
+### 4. Experience Entries
+
+Create individual files in the `experience/` directory for each job position. Name files with numerical prefixes for proper ordering (e.g., 001-current-job.md).
+
+Format for each experience file:
+
+---
+title: "Senior Software Engineer"
+company: "Company Name"
+startDate: "2023-01"  # YYYY-MM format
+endDate: "Present"    # or YYYY-MM format
+---
+
+- Key responsibility
+- Major achievement
+- Notable project
+
+### 5. Education Entries
+
+Create individual files in the `education/` directory for each educational qualification. Name files with numerical prefixes (e.g., 001-bachelor-computer-science.md).
+
+Format for each education file:
+
+---
+title: "Bachelor of Computer Science"
+institution: "University Name"
+location: "City, Country"
+startDate: "2016"
+endDate: "2020"
+---
+
+Optional additional details about your education, achievements, or relevant coursework can go here.
+
+## Optional Files
+
+### 1. legalnotice.md
+
+If you need a legal notice page, create this file with your legal information:
+
+# Legal Notice
+
+Your legal notice content goes here. This supports full markdown formatting.
+
+### Sections
+
+You can organize your legal notice with different sections using markdown headings.
+
+### 2. dataprivacypolicy.md
+
+If you need a privacy policy page, create this file:
+
+# Data Privacy Policy
+
+Your privacy policy content goes here. This supports full markdown formatting.
+
+### Sections
+
+You can organize your privacy policy with different sections using markdown headings.
+
+## Important Notes
+
+1. **File Names**: Keep the exact file names as specified above. The system looks for these specific names.
+
+2. **YAML Frontmatter**: The section between `---` at the start of some files is called YAML frontmatter and must be formatted exactly as shown.
+
+3. **Markdown Support**: All content files support standard markdown formatting including:
+   - Headers (# ## ###)
+   - Lists (- or 1. 2. 3.)
+   - Bold (**text**)
+   - Italic (*text*)
+   - Links ([text](url))
+   - Code blocks (```code```)
+
+4. **Images**: Place any images you want to use in the `public` directory and reference them with absolute paths starting with '/'.
+
+5. **Real-time Updates**: The system automatically reflects changes to content files, so you can edit and see changes immediately in development mode.
+
+For more detailed configuration options and advanced features, refer to the project's README.md file.

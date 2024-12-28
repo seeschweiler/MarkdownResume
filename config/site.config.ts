@@ -1,3 +1,33 @@
+/**
+ * Site Configuration File
+ *
+ * This file contains the main configuration settings for the resume website.
+ * You can customize various aspects of the site's functionality and appearance:
+ *
+ * Theme Settings:
+ * - activeTheme: Choose from multiple color themes (default, blue, purple, green, rose, amber, teal)
+ * - displayThemeSelector: Toggle the theme selector visibility in the UI
+ *
+ * Share Dialog Settings:
+ * - displayShareDialog: Toggle the main share dialog functionality
+ * - Individual sharing options can be enabled/disabled (link, email, QR code, download)
+ *
+ * Content Display:
+ * - displayStatement: Toggle visibility of the personal statement/motto
+ *
+ * Text Customization:
+ * - All user-facing texts can be customized under the 'texts' object:
+ *   - Section headlines
+ *   - Statement text
+ *   - Navigation and link texts
+ *   - SEO metadata (descriptions, keywords)
+ *   - Share dialog texts and messages
+ *
+ * To modify any setting, simply update the corresponding value in the configuration
+ * object below while maintaining the TypeScript interface structure defined in
+ * @/types/site-config.
+ */
+
 import { SiteConfig } from "@/types/site-config";
 
 const siteConfig: SiteConfig = {
