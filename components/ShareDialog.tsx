@@ -1,9 +1,22 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { Share2, Copy, Mail, Check } from "lucide-react";
+import { Share2, Copy, Mail, Check, Download } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import siteConfig from "@/config/site.config";
+import { generateVCard } from "@/utils/vcard";
+
+async function getPersonalDetails() {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/personal-details?t=${Date.now()}`,
+    {
+      cache: "no-store",
+      next: { revalidate: 0 },
+    }
+  );
+  if (!res.ok) throw new Error("Failed to fetch personal details");
+  return res.json();
+}
 
 export function ShareDialog() {
   const [isOpen, setIsOpen] = useState(false);
@@ -68,6 +81,37 @@ export function ShareDialog() {
         });
       };
       img.src = "data:image/svg+xml;base64," + btoa(svgData);
+    }
+  };
+
+  const downloadVCard = async () => {
+    try {
+      const personalDetails = await getPersonalDetails();
+
+      const vCardDetails = {
+        name: personalDetails?.name || "",
+        email: personalDetails?.contact?.email || "",
+        phone: personalDetails?.contact?.phone || "",
+        location: personalDetails?.location || "",
+        website: typeof window !== "undefined" ? window.location.href : "",
+      };
+
+      console.log("Personal Details for vCard:", vCardDetails);
+
+      const vCardData = generateVCard(vCardDetails);
+
+      const blob = new Blob([vCardData], { type: "text/vcard" });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `${vCardDetails.name || "contact"}.vcf`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error generating vCard:", error);
+      // You might want to show an error message to the user here
     }
   };
 
@@ -157,6 +201,16 @@ export function ShareDialog() {
                     >
                       Email
                     </button>
+                    <button
+                      onClick={() => setActiveTab("vcard")}
+                      className={`flex-1 py-2 text-sm font-medium ${
+                        activeTab === "vcard"
+                          ? "text-theme-text-accent border-b-2 border-theme-text-accent"
+                          : "text-theme-text-secondary"
+                      }`}
+                    >
+                      Contact
+                    </button>
                   </div>
 
                   {activeTab === "link" && (
@@ -204,6 +258,22 @@ export function ShareDialog() {
                       <Mail className="w-4 h-4 mr-2" />
                       Email
                     </button>
+                  )}
+
+                  {activeTab === "vcard" && (
+                    <div className="flex flex-col items-center space-y-4">
+                      <p className="text-sm text-theme-text-secondary text-center">
+                        Download contact information as a virtual business card
+                        (vCard)
+                      </p>
+                      <button
+                        onClick={downloadVCard}
+                        className="w-full py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-colors duration-200 flex items-center justify-center text-sm"
+                      >
+                        <Download className="w-4 h-4 mr-2" />
+                        Download vCard
+                      </button>
+                    </div>
                   )}
                 </div>
               </div>
