@@ -100,6 +100,7 @@ export function ShareDialog() {
   const downloadVCard = async () => {
     try {
       const personalDetails = await getPersonalDetails();
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "";
 
       const vCardDetails = {
         name: personalDetails?.name || "",
@@ -107,6 +108,9 @@ export function ShareDialog() {
         phone: personalDetails?.contact?.phone || "",
         location: personalDetails?.location || "",
         website: typeof window !== "undefined" ? window.location.href : "",
+        avatar: personalDetails?.avatar
+          ? `${baseUrl}${personalDetails.avatar}`
+          : "",
       };
 
       console.log("Personal Details for vCard:", vCardDetails);
