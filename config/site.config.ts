@@ -11,6 +11,7 @@
  * Share Dialog Settings:
  * - displayShareDialog: Toggle the main share dialog functionality
  * - Individual sharing options can be enabled/disabled (link, email, QR code, download)
+ * - vCard downloads include contact details and profile avatar for contact applications
  *
  * Content Display:
  * - displayStatement: Toggle visibility of the personal statement/motto
@@ -22,6 +23,11 @@
  *   - Navigation and link texts
  *   - SEO metadata (descriptions, keywords)
  *   - Share dialog texts and messages
+ *
+ * vCard Features:
+ * - Downloads include: name, email, phone, location, website
+ * - Profile avatar is automatically included if available
+ * - Compatible with most contact management applications
  *
  * To modify any setting, simply update the corresponding value in the configuration
  * object below while maintaining the TypeScript interface structure defined in

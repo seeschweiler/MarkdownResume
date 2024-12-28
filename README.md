@@ -110,7 +110,7 @@ location: "City, Country"
 social:
   github: "github.com/username"
   linkedin: "linkedin.com/in/username"
-avatar: "/profile_avatar.png"  # Place your avatar image in the public directory
+avatar: "/profile_avatar.png"  # Used for profile display and vCard contact photo
 ---
 ```
 
@@ -197,7 +197,8 @@ The share dialog provides four sharing methods:
 4. **vCard Download**:
    - Download contact information as a virtual business card
    - Compatible with most contact management systems
-   - Includes name, email, phone, and website details
+   - Includes name, email, phone, website, and profile avatar
+   - Profile picture automatically syncs with contact applications
 
 To configure the share dialog, update `site.config.ts`:
 
