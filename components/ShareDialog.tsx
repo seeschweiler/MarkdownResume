@@ -109,15 +109,30 @@ export function ShareDialog() {
         return `${cleanBase}${cleanPath}`;
       };
 
+      // Fetch and convert image to base64 if avatar exists
+      let avatarBase64 = "";
+      if (personalDetails?.avatar) {
+        try {
+          const avatarUrl = joinUrl(baseUrl, personalDetails.avatar);
+          const response = await fetch(avatarUrl);
+          const blob = await response.blob();
+          avatarBase64 = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result as string);
+            reader.readAsDataURL(blob);
+          });
+        } catch (error) {
+          console.error("Error fetching avatar:", error);
+        }
+      }
+
       const vCardDetails = {
         name: personalDetails?.name || "",
         email: personalDetails?.contact?.email || "",
         phone: personalDetails?.contact?.phone || "",
         location: personalDetails?.location || "",
         website: typeof window !== "undefined" ? window.location.href : "",
-        avatar: personalDetails?.avatar
-          ? joinUrl(baseUrl, personalDetails.avatar)
-          : "",
+        avatar: avatarBase64.split(",")[1] || "", // Remove the data URL prefix
       };
 
       console.log("Personal Details for vCard:", vCardDetails);

@@ -19,7 +19,7 @@ export function generateVCard(personalDetails: {
   if (phone) vCardData.push(`TEL;type=CELL:${phone}`);
   if (location) vCardData.push(`ADR;type=HOME:;;${location};;;;`);
   if (website) vCardData.push(`URL:${website}`);
-  if (avatar) vCardData.push(`PHOTO;VALUE=URI:${avatar}`);
+  if (avatar) vCardData.push(`PHOTO;ENCODING=b;TYPE=JPEG:${avatar}`);
 
   vCardData.push("END:VCARD");
 
