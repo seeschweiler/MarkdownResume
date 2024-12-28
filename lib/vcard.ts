@@ -7,7 +7,7 @@ export function generateVCard(personalDetails: {
 }) {
   const { name, email, phone, location, website } = personalDetails;
 
-  let vCardData = ["BEGIN:VCARD", "VERSION:3.0"];
+  const vCardData = ["BEGIN:VCARD", "VERSION:3.0"];
 
   // Only add fields that are available and properly escape them
   if (name) {

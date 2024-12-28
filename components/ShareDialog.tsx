@@ -1,6 +1,12 @@
 "use client";
 
-import React, { useState, useRef, useEffect, ReactElement } from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  ReactElement,
+  useMemo,
+} from "react";
 import { Share2, Copy, Mail, Check, Download } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import siteConfig from "@/config/site.config";
@@ -122,103 +128,107 @@ export function ShareDialog() {
     }
   };
 
-  // Create an array of available tabs based on config with proper typing
-  const availableTabs = [
-    siteConfig.displayShareDialogTabLink && {
-      id: "link",
-      label: "Link",
-      content: (
-        <div className="flex flex-col space-y-4">
-          <p className="text-sm text-theme-text-secondary text-center">
-            {siteConfig.texts.shareDialogLinkTabText}
-          </p>
-          <div className="flex space-x-2">
-            <input
-              type="text"
-              value={resumeUrl}
-              readOnly
-              className="flex-1 px-3 py-2 text-sm bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md"
-            />
-            <button
-              onClick={copyToClipboard}
-              className="px-3 py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-colors duration-200"
-            >
-              {copied ? (
-                <Check className="w-4 h-4" />
-              ) : (
-                <Copy className="w-4 h-4" />
-              )}
-            </button>
-          </div>
-        </div>
-      ),
-    },
-    siteConfig.displayShareDialogQRCodeLink && {
-      id: "qr",
-      label: "QR Code",
-      content: (
-        <div className="flex flex-col items-center space-y-4">
-          <p className="text-sm text-theme-text-secondary text-center">
-            {siteConfig.texts.shareDialogQRCodeTabText}
-          </p>
-          <QRCodeSVG value={resumeUrl} size={200} ref={qrCodeRef} />
-          <button
-            onClick={copyQRCode}
-            className="w-[200px] py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-colors duration-200 flex items-center justify-center"
-          >
-            {qrCopied ? (
-              <Check className="w-4 h-4" />
-            ) : (
-              <Copy className="w-4 h-4" />
-            )}
-          </button>
-        </div>
-      ),
-    },
-    siteConfig.displayShareDialogEmailLink && {
-      id: "email",
-      label: "Email",
-      content: (
-        <div className="flex flex-col space-y-4">
-          <p className="text-sm text-theme-text-secondary text-center">
-            {siteConfig.texts.shareDialogEmailTabText}
-          </p>
-          <button
-            onClick={shareViaEmail}
-            className="w-full py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-colors duration-200 flex items-center justify-center text-sm"
-          >
-            <Mail className="w-4 h-4 mr-2" />
-            Email
-          </button>
-        </div>
-      ),
-    },
-    siteConfig.displayShareDialogDownloadLink && {
-      id: "vcard",
-      label: "Contact",
-      content: (
-        <div className="flex flex-col items-center space-y-4">
-          <p className="text-sm text-theme-text-secondary text-center">
-            {siteConfig.texts.shareDialogVCardTabText}
-          </p>
-          <button
-            onClick={downloadVCard}
-            className="w-full py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-colors duration-200 flex items-center justify-center text-sm"
-          >
-            <Download className="w-4 h-4 mr-2" />
-            vCard
-          </button>
-        </div>
-      ),
-    },
-  ].filter((tab): tab is ShareTab => Boolean(tab)); // Type predicate to filter out false values
+  // Memoize the availableTabs array
+  const availableTabs = useMemo(
+    () =>
+      [
+        siteConfig.displayShareDialogTabLink && {
+          id: "link",
+          label: "Link",
+          content: (
+            <div className="flex flex-col space-y-4">
+              <p className="text-sm text-theme-text-secondary text-center">
+                {siteConfig.texts.shareDialogLinkTabText}
+              </p>
+              <div className="flex space-x-2">
+                <input
+                  type="text"
+                  value={resumeUrl}
+                  readOnly
+                  className="flex-1 px-3 py-2 text-sm bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md"
+                />
+                <button
+                  onClick={copyToClipboard}
+                  className="px-3 py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-colors duration-200"
+                >
+                  {copied ? (
+                    <Check className="w-4 h-4" />
+                  ) : (
+                    <Copy className="w-4 h-4" />
+                  )}
+                </button>
+              </div>
+            </div>
+          ),
+        },
+        siteConfig.displayShareDialogQRCodeLink && {
+          id: "qr",
+          label: "QR Code",
+          content: (
+            <div className="flex flex-col items-center space-y-4">
+              <p className="text-sm text-theme-text-secondary text-center">
+                {siteConfig.texts.shareDialogQRCodeTabText}
+              </p>
+              <QRCodeSVG value={resumeUrl} size={200} ref={qrCodeRef} />
+              <button
+                onClick={copyQRCode}
+                className="w-[200px] py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-colors duration-200 flex items-center justify-center"
+              >
+                {qrCopied ? (
+                  <Check className="w-4 h-4" />
+                ) : (
+                  <Copy className="w-4 h-4" />
+                )}
+              </button>
+            </div>
+          ),
+        },
+        siteConfig.displayShareDialogEmailLink && {
+          id: "email",
+          label: "Email",
+          content: (
+            <div className="flex flex-col space-y-4">
+              <p className="text-sm text-theme-text-secondary text-center">
+                {siteConfig.texts.shareDialogEmailTabText}
+              </p>
+              <button
+                onClick={shareViaEmail}
+                className="w-full py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-colors duration-200 flex items-center justify-center text-sm"
+              >
+                <Mail className="w-4 h-4 mr-2" />
+                Email
+              </button>
+            </div>
+          ),
+        },
+        siteConfig.displayShareDialogDownloadLink && {
+          id: "vcard",
+          label: "Contact",
+          content: (
+            <div className="flex flex-col items-center space-y-4">
+              <p className="text-sm text-theme-text-secondary text-center">
+                {siteConfig.texts.shareDialogVCardTabText}
+              </p>
+              <button
+                onClick={downloadVCard}
+                className="w-full py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-colors duration-200 flex items-center justify-center text-sm"
+              >
+                <Download className="w-4 h-4 mr-2" />
+                vCard
+              </button>
+            </div>
+          ),
+        },
+      ].filter((tab): tab is ShareTab => Boolean(tab)),
+    []
+  ); // Empty dependency array since siteConfig is static
 
   // Set initial active tab to first available tab
   useEffect(() => {
     if (availableTabs.length > 0) {
       setActiveTab(availableTabs[0].id);
     }
-  }, []);
+  }, [availableTabs]);
 
   // Don't render anything if no tabs are enabled
   if (availableTabs.length === 0) return null;
