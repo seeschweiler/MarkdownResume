@@ -115,6 +115,94 @@ export function ShareDialog() {
     }
   };
 
+  // Create an array of available tabs based on config
+  const availableTabs = [
+    siteConfig.displayShareDialogTabLink && {
+      id: "link",
+      label: "Link",
+      content: (
+        <div className="flex space-x-2">
+          <input
+            type="text"
+            value={resumeUrl}
+            readOnly
+            className="flex-1 px-3 py-2 text-sm bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md"
+          />
+          <button
+            onClick={copyToClipboard}
+            className="px-3 py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-colors duration-200"
+          >
+            {copied ? (
+              <Check className="w-4 h-4" />
+            ) : (
+              <Copy className="w-4 h-4" />
+            )}
+          </button>
+        </div>
+      ),
+    },
+    siteConfig.displayShareDialogQRCodeLink && {
+      id: "qr",
+      label: "QR Code",
+      content: (
+        <div className="flex flex-col items-center space-y-4">
+          <QRCodeSVG value={resumeUrl} size={200} ref={qrCodeRef} />
+          <button
+            onClick={copyQRCode}
+            className="w-[200px] py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-colors duration-200 flex items-center justify-center"
+          >
+            {qrCopied ? (
+              <Check className="w-4 h-4" />
+            ) : (
+              <Copy className="w-4 h-4" />
+            )}
+          </button>
+        </div>
+      ),
+    },
+    siteConfig.displayShareDialogEmailLink && {
+      id: "email",
+      label: "Email",
+      content: (
+        <button
+          onClick={shareViaEmail}
+          className="w-full py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-colors duration-200 flex items-center justify-center text-sm"
+        >
+          <Mail className="w-4 h-4 mr-2" />
+          Email
+        </button>
+      ),
+    },
+    siteConfig.displayShareDialogDownloadLink && {
+      id: "vcard",
+      label: "Contact",
+      content: (
+        <div className="flex flex-col items-center space-y-4">
+          <p className="text-sm text-theme-text-secondary text-center">
+            Download contact information as a virtual business card (vCard)
+          </p>
+          <button
+            onClick={downloadVCard}
+            className="w-full py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-colors duration-200 flex items-center justify-center text-sm"
+          >
+            <Download className="w-4 h-4 mr-2" />
+            Download vCard
+          </button>
+        </div>
+      ),
+    },
+  ].filter(Boolean);
+
+  // Set initial active tab to first available tab
+  useEffect(() => {
+    if (availableTabs.length > 0) {
+      setActiveTab(availableTabs[0].id);
+    }
+  }, []);
+
+  // Don't render anything if no tabs are enabled
+  if (availableTabs.length === 0) return null;
+
   return (
     <div className="relative z-50">
       <button
@@ -170,110 +258,28 @@ export function ShareDialog() {
                       </svg>
                     </button>
                   </div>
+
                   <div className="flex mb-4">
-                    <button
-                      onClick={() => setActiveTab("link")}
-                      className={`flex-1 py-2 text-sm font-medium ${
-                        activeTab === "link"
-                          ? "text-theme-text-accent border-b-2 border-theme-text-accent"
-                          : "text-theme-text-secondary"
-                      }`}
-                    >
-                      Link
-                    </button>
-                    <button
-                      onClick={() => setActiveTab("qr")}
-                      className={`flex-1 py-2 text-sm font-medium ${
-                        activeTab === "qr"
-                          ? "text-theme-text-accent border-b-2 border-theme-text-accent"
-                          : "text-theme-text-secondary"
-                      }`}
-                    >
-                      QR Code
-                    </button>
-                    <button
-                      onClick={() => setActiveTab("email")}
-                      className={`flex-1 py-2 text-sm font-medium ${
-                        activeTab === "email"
-                          ? "text-theme-text-accent border-b-2 border-theme-text-accent"
-                          : "text-theme-text-secondary"
-                      }`}
-                    >
-                      Email
-                    </button>
-                    <button
-                      onClick={() => setActiveTab("vcard")}
-                      className={`flex-1 py-2 text-sm font-medium ${
-                        activeTab === "vcard"
-                          ? "text-theme-text-accent border-b-2 border-theme-text-accent"
-                          : "text-theme-text-secondary"
-                      }`}
-                    >
-                      Contact
-                    </button>
+                    {availableTabs.map((tab) => (
+                      <button
+                        key={tab.id}
+                        onClick={() => setActiveTab(tab.id)}
+                        className={`flex-1 py-2 text-sm font-medium ${
+                          activeTab === tab.id
+                            ? "text-theme-text-accent border-b-2 border-theme-text-accent"
+                            : "text-theme-text-secondary"
+                        }`}
+                      >
+                        {tab.label}
+                      </button>
+                    ))}
                   </div>
 
-                  {activeTab === "link" && (
-                    <div className="flex space-x-2">
-                      <input
-                        type="text"
-                        value={resumeUrl}
-                        readOnly
-                        className="flex-1 px-3 py-2 text-sm bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md"
-                      />
-                      <button
-                        onClick={copyToClipboard}
-                        className="px-3 py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-colors duration-200"
-                      >
-                        {copied ? (
-                          <Check className="w-4 h-4" />
-                        ) : (
-                          <Copy className="w-4 h-4" />
-                        )}
-                      </button>
-                    </div>
-                  )}
-
-                  {activeTab === "qr" && (
-                    <div className="flex flex-col items-center space-y-4">
-                      <QRCodeSVG value={resumeUrl} size={200} ref={qrCodeRef} />
-                      <button
-                        onClick={copyQRCode}
-                        className="w-[200px] py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-colors duration-200 flex items-center justify-center"
-                      >
-                        {qrCopied ? (
-                          <Check className="w-4 h-4" />
-                        ) : (
-                          <Copy className="w-4 h-4" />
-                        )}
-                      </button>
-                    </div>
-                  )}
-
-                  {activeTab === "email" && (
-                    <button
-                      onClick={shareViaEmail}
-                      className="w-full py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-colors duration-200 flex items-center justify-center text-sm"
-                    >
-                      <Mail className="w-4 h-4 mr-2" />
-                      Email
-                    </button>
-                  )}
-
-                  {activeTab === "vcard" && (
-                    <div className="flex flex-col items-center space-y-4">
-                      <p className="text-sm text-theme-text-secondary text-center">
-                        Download contact information as a virtual business card
-                        (vCard)
-                      </p>
-                      <button
-                        onClick={downloadVCard}
-                        className="w-full py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-colors duration-200 flex items-center justify-center text-sm"
-                      >
-                        <Download className="w-4 h-4 mr-2" />
-                        Download vCard
-                      </button>
-                    </div>
+                  {availableTabs.map(
+                    (tab) =>
+                      activeTab === tab.id && (
+                        <div key={tab.id}>{tab.content}</div>
+                      )
                   )}
                 </div>
               </div>

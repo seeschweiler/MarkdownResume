@@ -9,6 +9,10 @@ export interface SiteConfig {
     | "teal";
   displayThemeSelector: boolean;
   displayShareDialog: boolean;
+  displayShareDialogTabLink: boolean;
+  displayShareDialogEmailLink: boolean;
+  displayShareDialogQRCodeLink: boolean;
+  displayShareDialogDownloadLink: boolean;
   texts: {
     summarySectionHeadlineText: string;
     experienceSectionHeadlineText: string;

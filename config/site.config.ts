@@ -4,6 +4,10 @@ const siteConfig: SiteConfig = {
   activeTheme: "default",
   displayThemeSelector: false,
   displayShareDialog: true,
+  displayShareDialogTabLink: true,
+  displayShareDialogEmailLink: true,
+  displayShareDialogQRCodeLink: true,
+  displayShareDialogDownloadLink: true,
   texts: {
     summarySectionHeadlineText: "Summary",
     experienceSectionHeadlineText: "Experience",
