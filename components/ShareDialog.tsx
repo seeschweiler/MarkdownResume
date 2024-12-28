@@ -102,6 +102,13 @@ export function ShareDialog() {
       const personalDetails = await getPersonalDetails();
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "";
 
+      // Helper function to join URL parts without double slashes
+      const joinUrl = (base: string, path: string) => {
+        const cleanBase = base.endsWith("/") ? base.slice(0, -1) : base;
+        const cleanPath = path.startsWith("/") ? path : `/${path}`;
+        return `${cleanBase}${cleanPath}`;
+      };
+
       const vCardDetails = {
         name: personalDetails?.name || "",
         email: personalDetails?.contact?.email || "",
@@ -109,7 +116,7 @@ export function ShareDialog() {
         location: personalDetails?.location || "",
         website: typeof window !== "undefined" ? window.location.href : "",
         avatar: personalDetails?.avatar
-          ? `${baseUrl}${personalDetails.avatar}`
+          ? joinUrl(baseUrl, personalDetails.avatar)
           : "",
       };
 
