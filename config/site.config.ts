@@ -2,6 +2,7 @@ import { SiteConfig } from "@/types/site-config";
 
 const siteConfig: SiteConfig = {
   activeTheme: "default",
+  displayStatement: true,
   displayThemeSelector: false,
   displayShareDialog: true,
   displayShareDialogTabLink: true,

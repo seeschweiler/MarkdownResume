@@ -13,6 +13,7 @@ export interface SiteConfig {
   displayShareDialogEmailLink: boolean;
   displayShareDialogQRCodeLink: boolean;
   displayShareDialogDownloadLink: boolean;
+  displayStatement: boolean;
   texts: {
     summarySectionHeadlineText: string;
     experienceSectionHeadlineText: string;

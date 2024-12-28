@@ -409,11 +409,13 @@ export default async function Resume() {
           )}
         </div>
 
-        <footer className="bg-[var(--theme-footer-primary)] text-theme-text-primary text-center py-4 transition-colors duration-200">
-          <p className="text-gray-600 dark:text-gray-300 italic">
-            {siteConfig.texts.statementText}
-          </p>
-        </footer>
+        {siteConfig.displayStatement && (
+          <footer className="bg-[var(--theme-footer-primary)] text-theme-text-primary text-center py-4 transition-colors duration-200">
+            <p className="text-gray-600 dark:text-gray-300 italic">
+              {siteConfig.texts.statementText}
+            </p>
+          </footer>
+        )}
 
         <footer className="bg-[var(--theme-footer-secondary)] text-center py-3 transition-colors duration-200">
           <nav className="flex justify-center space-x-4">
