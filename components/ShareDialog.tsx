@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect, ReactElement } from "react";
 import { Share2, Copy, Mail, Check, Download } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import siteConfig from "@/config/site.config";
-import { generateVCard } from "@/utils/vcard";
+import { generateVCard } from "@/lib/vcard";
 
 async function getPersonalDetails() {
   const res = await fetch(
