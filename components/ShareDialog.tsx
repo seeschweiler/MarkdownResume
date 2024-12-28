@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, ReactElement } from "react";
 import { Share2, Copy, Mail, Check, Download } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import siteConfig from "@/config/site.config";
@@ -22,7 +22,7 @@ async function getPersonalDetails() {
 interface ShareTab {
   id: string;
   label: string;
-  content: JSX.Element;
+  content: ReactElement;
 }
 
 export function ShareDialog() {
