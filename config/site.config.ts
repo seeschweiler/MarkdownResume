@@ -33,6 +33,13 @@ const siteConfig: SiteConfig = {
     shareDialogHeadlineText: "Share Resume",
     shareDialogEmailSubject: "Check out this resume",
     shareDialogEmailBody: "I thought you might be interested in this resume:",
+    shareDialogLinkTabText:
+      "Copy the direct link to share this resume with others",
+    shareDialogQRCodeTabText:
+      "Scan or copy the QR code to open this resume on a mobile device",
+    shareDialogEmailTabText: "Send this resume directly via email",
+    shareDialogVCardTabText:
+      "Download contact information as a virtual business card (vCard)",
   },
 };
 

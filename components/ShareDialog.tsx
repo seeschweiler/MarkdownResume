@@ -128,23 +128,28 @@ export function ShareDialog() {
       id: "link",
       label: "Link",
       content: (
-        <div className="flex space-x-2">
-          <input
-            type="text"
-            value={resumeUrl}
-            readOnly
-            className="flex-1 px-3 py-2 text-sm bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md"
-          />
-          <button
-            onClick={copyToClipboard}
-            className="px-3 py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-colors duration-200"
-          >
-            {copied ? (
-              <Check className="w-4 h-4" />
-            ) : (
-              <Copy className="w-4 h-4" />
-            )}
-          </button>
+        <div className="flex flex-col space-y-4">
+          <p className="text-sm text-theme-text-secondary text-center">
+            {siteConfig.texts.shareDialogLinkTabText}
+          </p>
+          <div className="flex space-x-2">
+            <input
+              type="text"
+              value={resumeUrl}
+              readOnly
+              className="flex-1 px-3 py-2 text-sm bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md"
+            />
+            <button
+              onClick={copyToClipboard}
+              className="px-3 py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-colors duration-200"
+            >
+              {copied ? (
+                <Check className="w-4 h-4" />
+              ) : (
+                <Copy className="w-4 h-4" />
+              )}
+            </button>
+          </div>
         </div>
       ),
     },
@@ -153,6 +158,9 @@ export function ShareDialog() {
       label: "QR Code",
       content: (
         <div className="flex flex-col items-center space-y-4">
+          <p className="text-sm text-theme-text-secondary text-center">
+            {siteConfig.texts.shareDialogQRCodeTabText}
+          </p>
           <QRCodeSVG value={resumeUrl} size={200} ref={qrCodeRef} />
           <button
             onClick={copyQRCode}
@@ -171,13 +179,18 @@ export function ShareDialog() {
       id: "email",
       label: "Email",
       content: (
-        <button
-          onClick={shareViaEmail}
-          className="w-full py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-colors duration-200 flex items-center justify-center text-sm"
-        >
-          <Mail className="w-4 h-4 mr-2" />
-          Email
-        </button>
+        <div className="flex flex-col space-y-4">
+          <p className="text-sm text-theme-text-secondary text-center">
+            {siteConfig.texts.shareDialogEmailTabText}
+          </p>
+          <button
+            onClick={shareViaEmail}
+            className="w-full py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-colors duration-200 flex items-center justify-center text-sm"
+          >
+            <Mail className="w-4 h-4 mr-2" />
+            Email
+          </button>
+        </div>
       ),
     },
     siteConfig.displayShareDialogDownloadLink && {
@@ -186,14 +199,14 @@ export function ShareDialog() {
       content: (
         <div className="flex flex-col items-center space-y-4">
           <p className="text-sm text-theme-text-secondary text-center">
-            Download contact information as a virtual business card (vCard)
+            {siteConfig.texts.shareDialogVCardTabText}
           </p>
           <button
             onClick={downloadVCard}
             className="w-full py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-colors duration-200 flex items-center justify-center text-sm"
           >
             <Download className="w-4 h-4 mr-2" />
-            Download vCard
+            vCard
           </button>
         </div>
       ),
@@ -271,7 +284,7 @@ export function ShareDialog() {
                       <button
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id)}
-                        className={`flex-1 py-2 text-sm font-medium ${
+                        className={`flex-1 py-2 px-2 text-sm font-medium whitespace-nowrap ${
                           activeTab === tab.id
                             ? "text-theme-text-accent border-b-2 border-theme-text-accent"
                             : "text-theme-text-secondary"

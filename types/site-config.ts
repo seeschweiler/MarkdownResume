@@ -30,5 +30,9 @@ export interface SiteConfig {
     shareDialogHeadlineText: string;
     shareDialogEmailSubject: string;
     shareDialogEmailBody: string;
+    shareDialogLinkTabText: string;
+    shareDialogQRCodeTabText: string;
+    shareDialogEmailTabText: string;
+    shareDialogVCardTabText: string;
   };
 }
