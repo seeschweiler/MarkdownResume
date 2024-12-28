@@ -1,8 +1,3 @@
-interface Contact {
-  email?: string;
-  phone?: string;
-}
-
 export interface SiteConfig {
   activeTheme:
     | "default"
@@ -32,5 +27,4 @@ export interface SiteConfig {
     shareDialogEmailSubject: string;
     shareDialogEmailBody: string;
   };
-  personalDetails?: PersonalDetails;
 }
