@@ -85,6 +85,30 @@ export function ShareDialog() {
   const resumeUrl = typeof window !== "undefined" ? window.location.href : "";
   const qrCodeRef = useRef<SVGSVGElement>(null);
 
+  // Move availableTabs definition here, before the useEffect hooks
+  const availableTabs = useMemo(
+    () =>
+      [
+        siteConfig.displayShareDialogTabLink && {
+          id: "link",
+          label: "Link",
+        },
+        siteConfig.displayShareDialogQRCodeLink && {
+          id: "qr",
+          label: "QR Code",
+        },
+        siteConfig.displayShareDialogEmailLink && {
+          id: "email",
+          label: "Email",
+        },
+        siteConfig.displayShareDialogDownloadLink && {
+          id: "vcard",
+          label: "Contact",
+        },
+      ].filter((tab): tab is Omit<ShareTab, "content"> => Boolean(tab)),
+    []
+  );
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -106,6 +130,20 @@ export function ShareDialog() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    if (availableTabs.length > 0) {
+      setActiveTab(availableTabs[0].id);
+    }
+  }, [availableTabs]);
+
+  useEffect(() => {
+    console.log("Copied state changed:", copied);
+  }, [copied]);
+
+  useEffect(() => {
+    console.log("QR Copied state changed:", qrCopied);
+  }, [qrCopied]);
 
   const copyToClipboard = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -295,47 +333,8 @@ export function ShareDialog() {
     }
   };
 
-  // Update the useMemo to only handle tab definitions
-  const availableTabs = useMemo(
-    () =>
-      [
-        siteConfig.displayShareDialogTabLink && {
-          id: "link",
-          label: "Link",
-        },
-        siteConfig.displayShareDialogQRCodeLink && {
-          id: "qr",
-          label: "QR Code",
-        },
-        siteConfig.displayShareDialogEmailLink && {
-          id: "email",
-          label: "Email",
-        },
-        siteConfig.displayShareDialogDownloadLink && {
-          id: "vcard",
-          label: "Contact",
-        },
-      ].filter((tab): tab is Omit<ShareTab, "content"> => Boolean(tab)),
-    []
-  );
-
-  // Set initial active tab to first available tab
-  useEffect(() => {
-    if (availableTabs.length > 0) {
-      setActiveTab(availableTabs[0].id);
-    }
-  }, [availableTabs]);
-
   // Don't render anything if no tabs are enabled
   if (availableTabs.length === 0) return null;
-
-  useEffect(() => {
-    console.log("Copied state changed:", copied);
-  }, [copied]);
-
-  useEffect(() => {
-    console.log("QR Copied state changed:", qrCopied);
-  }, [qrCopied]);
 
   return (
     <div className="relative z-50">
