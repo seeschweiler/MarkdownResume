@@ -40,7 +40,7 @@ const CopyButton = ({
 }) => (
   <button
     onClick={onClick}
-    className="px-3 py-2 bg-[var(--theme-bg-secondary)] hover:bg-[var(--theme-bg-hover)] text-theme-text-primary rounded-md transition-all duration-200 flex items-center justify-center"
+    className="px-3 py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-all duration-200 flex items-center justify-center"
   >
     {copied ? (
       <Check className="w-4 h-4 text-theme-text-accent" />
@@ -66,7 +66,7 @@ const QRCopyButton = ({
       onClick(e);
       setTimeout(() => setActiveTab("qr"), 0);
     }}
-    className="w-[200px] px-3 py-2 bg-[var(--theme-bg-secondary)] hover:bg-[var(--theme-bg-hover)] text-theme-text-primary rounded-md transition-all duration-200 flex items-center justify-center"
+    className="w-[200px] px-3 py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-all duration-200 flex items-center justify-center"
   >
     {qrCopied ? (
       <Check className="w-4 h-4 text-theme-text-accent" />
