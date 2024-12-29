@@ -28,8 +28,53 @@ async function getPersonalDetails() {
 interface ShareTab {
   id: string;
   label: string;
-  content: ReactElement;
 }
+
+// Create separate components for the buttons
+const CopyButton = ({
+  copied,
+  onClick,
+}: {
+  copied: boolean;
+  onClick: (e: React.MouseEvent) => void;
+}) => (
+  <button
+    onClick={onClick}
+    className="px-3 py-2 bg-[var(--theme-bg-secondary)] hover:bg-[var(--theme-bg-hover)] text-theme-text-primary rounded-md transition-all duration-200 flex items-center justify-center"
+  >
+    {copied ? (
+      <Check className="w-4 h-4 text-theme-text-accent" />
+    ) : (
+      <Copy className="w-4 h-4" />
+    )}
+  </button>
+);
+
+const QRCopyButton = ({
+  qrCopied,
+  onClick,
+  setActiveTab,
+}: {
+  qrCopied: boolean;
+  onClick: (e: React.MouseEvent) => void;
+  setActiveTab: (tab: string) => void;
+}) => (
+  <button
+    onClick={(e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      onClick(e);
+      setTimeout(() => setActiveTab("qr"), 0);
+    }}
+    className="w-[200px] px-3 py-2 bg-[var(--theme-bg-secondary)] hover:bg-[var(--theme-bg-hover)] text-theme-text-primary rounded-md transition-all duration-200 flex items-center justify-center"
+  >
+    {qrCopied ? (
+      <Check className="w-4 h-4 text-theme-text-accent" />
+    ) : (
+      <Copy className="w-4 h-4" />
+    )}
+  </button>
+);
 
 export function ShareDialog() {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,9 +89,15 @@ export function ShareDialog() {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         dialogRef.current &&
-        !dialogRef.current.contains(event.target as Node)
+        !dialogRef.current.contains(event.target as Node) &&
+        event.target instanceof Node
       ) {
-        setIsOpen(false);
+        const isBackdrop =
+          (event.target as Element).classList.contains("absolute") &&
+          (event.target as Element).classList.contains("inset-0");
+        if (isBackdrop) {
+          setIsOpen(false);
+        }
       }
     };
 
@@ -56,10 +107,17 @@ export function ShareDialog() {
     };
   }, []);
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(resumeUrl);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const copyToClipboard = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    try {
+      await navigator.clipboard.writeText(resumeUrl);
+      setCopied(true);
+      setTimeout(() => {
+        setCopied(false);
+      }, 2000);
+    } catch (err) {
+      console.error("Failed to copy text:", err);
+    }
   };
 
   const shareViaEmail = () => {
@@ -70,30 +128,41 @@ export function ShareDialog() {
     )}`;
   };
 
-  const copyQRCode = () => {
+  const copyQRCode = async (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (qrCodeRef.current) {
-      const svg = qrCodeRef.current;
-      const svgData = new XMLSerializer().serializeToString(svg);
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
-      const img = new Image();
-      img.onload = () => {
+      try {
+        const svg = qrCodeRef.current;
+        const svgData = new XMLSerializer().serializeToString(svg);
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        const img = new Image();
+
+        await new Promise((resolve, reject) => {
+          img.onload = resolve;
+          img.onerror = reject;
+          img.src = "data:image/svg+xml;base64," + btoa(svgData);
+        });
+
         canvas.width = img.width;
         canvas.height = img.height;
         ctx?.drawImage(img, 0, 0);
-        canvas.toBlob((blob) => {
-          if (blob) {
-            navigator.clipboard.write([
-              new ClipboardItem({
-                "image/png": blob,
-              }),
-            ]);
-            setQrCopied(true);
-            setTimeout(() => setQrCopied(false), 2000);
-          }
-        });
-      };
-      img.src = "data:image/svg+xml;base64," + btoa(svgData);
+
+        const blob = await new Promise<Blob | null>((resolve) =>
+          canvas.toBlob(resolve)
+        );
+        if (blob) {
+          await navigator.clipboard.write([
+            new ClipboardItem({
+              "image/png": blob,
+            }),
+          ]);
+          setQrCopied(true);
+          setTimeout(() => setQrCopied(false), 2000);
+        }
+      } catch (err) {
+        console.error("Failed to copy QR code:", err);
+      }
     }
   };
 
@@ -154,100 +223,101 @@ export function ShareDialog() {
     }
   };
 
-  // Memoize the availableTabs array
+  // Update the renderTabContent function to include all cases
+  const renderTabContent = (tabId: string) => {
+    switch (tabId) {
+      case "link":
+        return (
+          <div className="flex flex-col space-y-4">
+            <p className="text-sm text-theme-text-secondary text-center">
+              {siteConfig.texts.shareDialogLinkTabText}
+            </p>
+            <div className="flex space-x-2">
+              <input
+                type="text"
+                value={resumeUrl}
+                readOnly
+                className="flex-1 px-3 py-2 text-sm bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md"
+              />
+              <CopyButton copied={copied} onClick={copyToClipboard} />
+            </div>
+          </div>
+        );
+      case "qr":
+        return (
+          <div
+            className="flex flex-col items-center space-y-4"
+            onClick={(e) => e.preventDefault()}
+          >
+            <p className="text-sm text-theme-text-secondary text-center">
+              {siteConfig.texts.shareDialogQRCodeTabText}
+            </p>
+            <QRCodeSVG value={resumeUrl} size={200} ref={qrCodeRef} />
+            <QRCopyButton
+              qrCopied={qrCopied}
+              onClick={copyQRCode}
+              setActiveTab={setActiveTab}
+            />
+          </div>
+        );
+      case "email":
+        return (
+          <div className="flex flex-col space-y-4">
+            <p className="text-sm text-theme-text-secondary text-center">
+              {siteConfig.texts.shareDialogEmailTabText}
+            </p>
+            <button
+              onClick={shareViaEmail}
+              className="w-full py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-colors duration-200 flex items-center justify-center text-sm"
+            >
+              <Mail className="w-4 h-4 mr-2" />
+              Email
+            </button>
+          </div>
+        );
+      case "vcard":
+        return (
+          <div className="flex flex-col items-center space-y-4">
+            <p className="text-sm text-theme-text-secondary text-center">
+              {siteConfig.texts.shareDialogVCardTabText}
+            </p>
+            <button
+              onClick={downloadVCard}
+              className="w-full py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-colors duration-200 flex items-center justify-center text-sm"
+            >
+              <Download className="w-4 h-4 mr-2" />
+              vCard
+            </button>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
+  // Update the useMemo to only handle tab definitions
   const availableTabs = useMemo(
     () =>
       [
         siteConfig.displayShareDialogTabLink && {
           id: "link",
           label: "Link",
-          content: (
-            <div className="flex flex-col space-y-4">
-              <p className="text-sm text-theme-text-secondary text-center">
-                {siteConfig.texts.shareDialogLinkTabText}
-              </p>
-              <div className="flex space-x-2">
-                <input
-                  type="text"
-                  value={resumeUrl}
-                  readOnly
-                  className="flex-1 px-3 py-2 text-sm bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md"
-                />
-                <button
-                  onClick={copyToClipboard}
-                  className="px-3 py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-colors duration-200"
-                >
-                  {copied ? (
-                    <Check className="w-4 h-4" />
-                  ) : (
-                    <Copy className="w-4 h-4" />
-                  )}
-                </button>
-              </div>
-            </div>
-          ),
         },
         siteConfig.displayShareDialogQRCodeLink && {
           id: "qr",
           label: "QR Code",
-          content: (
-            <div className="flex flex-col items-center space-y-4">
-              <p className="text-sm text-theme-text-secondary text-center">
-                {siteConfig.texts.shareDialogQRCodeTabText}
-              </p>
-              <QRCodeSVG value={resumeUrl} size={200} ref={qrCodeRef} />
-              <button
-                onClick={copyQRCode}
-                className="w-[200px] py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-colors duration-200 flex items-center justify-center"
-              >
-                {qrCopied ? (
-                  <Check className="w-4 h-4" />
-                ) : (
-                  <Copy className="w-4 h-4" />
-                )}
-              </button>
-            </div>
-          ),
         },
         siteConfig.displayShareDialogEmailLink && {
           id: "email",
           label: "Email",
-          content: (
-            <div className="flex flex-col space-y-4">
-              <p className="text-sm text-theme-text-secondary text-center">
-                {siteConfig.texts.shareDialogEmailTabText}
-              </p>
-              <button
-                onClick={shareViaEmail}
-                className="w-full py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-colors duration-200 flex items-center justify-center text-sm"
-              >
-                <Mail className="w-4 h-4 mr-2" />
-                Email
-              </button>
-            </div>
-          ),
         },
         siteConfig.displayShareDialogDownloadLink && {
           id: "vcard",
           label: "Contact",
-          content: (
-            <div className="flex flex-col items-center space-y-4">
-              <p className="text-sm text-theme-text-secondary text-center">
-                {siteConfig.texts.shareDialogVCardTabText}
-              </p>
-              <button
-                onClick={downloadVCard}
-                className="w-full py-2 bg-[var(--theme-bg-secondary)] text-theme-text-primary rounded-md transition-colors duration-200 flex items-center justify-center text-sm"
-              >
-                <Download className="w-4 h-4 mr-2" />
-                vCard
-              </button>
-            </div>
-          ),
         },
-      ].filter((tab): tab is ShareTab => Boolean(tab)),
+      ].filter((tab): tab is Omit<ShareTab, "content"> => Boolean(tab)),
     []
-  ); // Empty dependency array since siteConfig is static
+  );
 
   // Set initial active tab to first available tab
   useEffect(() => {
@@ -258,6 +328,14 @@ export function ShareDialog() {
 
   // Don't render anything if no tabs are enabled
   if (availableTabs.length === 0) return null;
+
+  useEffect(() => {
+    console.log("Copied state changed:", copied);
+  }, [copied]);
+
+  useEffect(() => {
+    console.log("QR Copied state changed:", qrCopied);
+  }, [qrCopied]);
 
   return (
     <div className="relative z-50">
@@ -319,7 +397,11 @@ export function ShareDialog() {
                     {availableTabs.map((tab) => (
                       <button
                         key={tab.id}
-                        onClick={() => setActiveTab(tab.id)}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          setActiveTab(tab.id);
+                        }}
                         className={`flex-1 py-2 px-2 text-sm font-medium whitespace-nowrap ${
                           activeTab === tab.id
                             ? "text-theme-text-accent border-b-2 border-theme-text-accent"
@@ -334,7 +416,9 @@ export function ShareDialog() {
                   {availableTabs.map(
                     (tab) =>
                       activeTab === tab.id && (
-                        <div key={tab.id}>{tab.content}</div>
+                        <div key={tab.id} onClick={(e) => e.stopPropagation()}>
+                          {renderTabContent(tab.id)}
+                        </div>
                       )
                   )}
                 </div>
