@@ -2,12 +2,13 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { AppProviders } from "./providers/AppProviders";
+import siteConfig from "@/config/site.config";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "John Doe - Resume",
-  description: "Professional resume of John Doe, Software Engineer",
+  title: siteConfig.texts.metadataFallbackName,
+  description: `${siteConfig.texts.metadataDescriptionPrefix}. ${siteConfig.texts.metadataDescriptionSuffix}`,
 };
 
 export default function RootLayout({
