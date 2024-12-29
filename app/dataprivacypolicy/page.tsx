@@ -21,8 +21,30 @@ async function getDataPrivacyPolicy() {
   return res.json();
 }
 
+async function hasLegalNotice() {
+  try {
+    const res = await fetch(
+      `${
+        process.env.NEXT_PUBLIC_BASE_URL
+      }/api/content/legalnotice?t=${Date.now()}`,
+      {
+        cache: "no-store",
+        next: { revalidate: 0 },
+      }
+    );
+    if (!res.ok) return false;
+    const data = await res.json();
+    return Boolean(data?.content && data.content.trim().length > 0);
+  } catch {
+    return false;
+  }
+}
+
 export default async function DataPrivacyPolicy() {
-  const content = await getDataPrivacyPolicy();
+  const [content, hasLegal] = await Promise.all([
+    getDataPrivacyPolicy(),
+    hasLegalNotice(),
+  ]);
 
   return (
     <div className="min-h-screen bg-[var(--theme-page-bg)] p-6 transition-colors duration-200">
@@ -44,6 +66,15 @@ export default async function DataPrivacyPolicy() {
 
         <footer className="bg-[var(--theme-footer-secondary)] text-center py-3 transition-colors duration-200">
           <nav className="flex justify-center space-x-4">
+            {hasLegal && (
+              <a
+                href="/legalnotice"
+                className="text-sm text-gray-600 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
+                aria-label={siteConfig.texts.legalNoticeLinkText}
+              >
+                {siteConfig.texts.legalNoticeLinkText}
+              </a>
+            )}
             <a
               href="/"
               className="text-sm text-gray-600 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
