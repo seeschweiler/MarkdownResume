@@ -47,8 +47,13 @@ content/
 #### Basic Setup
 
 ```bash
-# Clone the repository
-git clone https://github.com/seeschweiler/MarkdownResume
+# Fork the repository
+# Visit https://github.com/seeschweiler/MarkdownResume
+# Click the 'Fork' button in the top right
+# Follow the instructions to create a fork in your account
+
+# Clone your forked repository
+git clone https://github.com/YOUR-USERNAME/MarkdownResume
 cd markdown-resume
 
 # Install dependencies using npm
