@@ -377,7 +377,7 @@ export default async function Resume() {
               </h2>
               {siteConfig.displaySkillCategories ? (
                 <div className="space-y-6">
-                  {skills.skillCategories.map((category) => (
+                  {skills.skillCategories.map((category: SkillCategory) => (
                     <div key={category.category}>
                       <h3 className="text-lg font-medium text-gray-800 dark:text-gray-200 mb-2">
                         {category.category}
@@ -397,7 +397,7 @@ export default async function Resume() {
                 </div>
               ) : (
                 <div className="flex flex-wrap gap-2">
-                  {skills.skillCategories.flatMap((category) =>
+                  {skills.skillCategories.flatMap((category: SkillCategory) =>
                     category.skills.map((skill: string) => (
                       <span
                         key={skill}
