@@ -20,6 +20,7 @@ import { ShareDialog } from "@/components/ShareDialog";
 import { getEducation } from "@/lib/education";
 
 import siteConfig from "@/config/site.config";
+import { SkillCategory } from "@/types/skills";
 
 async function getPersonalDetails() {
   const res = await fetch(
@@ -145,7 +146,7 @@ export async function generateMetadata(): Promise<Metadata> {
   // Safely get skills array
   const skills =
     personalDetails?.skills?.skillCategories?.flatMap(
-      (category) => category.skills
+      (category: SkillCategory) => category.skills
     ) || [];
 
   // Safe image URL checking
