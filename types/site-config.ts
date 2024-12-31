@@ -7,6 +7,7 @@ export interface SiteConfig {
     | "rose"
     | "amber"
     | "teal";
+  displaySkillCategories: boolean;
   displayThemeSelector: boolean;
   displayShareDialog: boolean;
   displayShareDialogTabLink: boolean;

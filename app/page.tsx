@@ -34,15 +34,20 @@ async function getPersonalDetails() {
 }
 
 async function getSkills() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/skills?t=${Date.now()}`,
-    {
-      cache: "no-store",
-      next: { revalidate: 0 },
-    }
-  );
-  if (!res.ok) throw new Error("Failed to fetch skills");
-  return res.json();
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/skills?t=${Date.now()}`,
+      {
+        cache: "no-store",
+        next: { revalidate: 0 },
+      }
+    );
+    if (!res.ok) return { skillCategories: [] };
+    return res.json();
+  } catch (error) {
+    console.error("Error fetching skills:", error);
+    return { skillCategories: [] };
+  }
 }
 
 async function getSummary() {
@@ -138,9 +143,10 @@ export async function generateMetadata(): Promise<Metadata> {
   }.`;
 
   // Safely get skills array
-  const skills = Array.isArray(personalDetails?.skills?.skills)
-    ? personalDetails.skills.skills
-    : [];
+  const skills =
+    personalDetails?.skills?.skillCategories?.flatMap(
+      (category) => category.skills
+    ) || [];
 
   // Safe image URL checking
   const avatarUrl =
@@ -362,22 +368,46 @@ export default async function Resume() {
             </section>
           )}
 
-          {skills?.skills?.length > 0 && (
+          {skills?.skillCategories?.length > 0 && (
             <section className="mb-10">
               <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-900 dark:text-gray-100">
                 <Zap className="w-6 h-6" />
                 {siteConfig.texts.skillsSectionHeadlineText}
               </h2>
-              <div className="flex flex-wrap gap-2">
-                {skills.skills.map((skill: string) => (
-                  <span
-                    key={skill}
-                    className="bg-teal-100 dark:bg-teal-900 text-teal-700 dark:text-teal-300 px-3 py-1 rounded-full text-sm font-medium"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
+              {siteConfig.displaySkillCategories ? (
+                <div className="space-y-6">
+                  {skills.skillCategories.map((category) => (
+                    <div key={category.category}>
+                      <h3 className="text-lg font-medium text-gray-800 dark:text-gray-200 mb-2">
+                        {category.category}
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        {category.skills.map((skill: string) => (
+                          <span
+                            key={skill}
+                            className="bg-teal-100 dark:bg-teal-900 text-teal-700 dark:text-teal-300 px-3 py-1 rounded-full text-sm font-medium"
+                          >
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="flex flex-wrap gap-2">
+                  {skills.skillCategories.flatMap((category) =>
+                    category.skills.map((skill: string) => (
+                      <span
+                        key={skill}
+                        className="bg-teal-100 dark:bg-teal-900 text-teal-700 dark:text-teal-300 px-3 py-1 rounded-full text-sm font-medium"
+                      >
+                        {skill}
+                      </span>
+                    ))
+                  )}
+                </div>
+              )}
             </section>
           )}
 

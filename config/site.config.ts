@@ -38,6 +38,7 @@ import { SiteConfig } from "@/types/site-config";
 
 const siteConfig: SiteConfig = {
   activeTheme: "default",
+  displaySkillCategories: false,
   displayStatement: true,
   displayThemeSelector: false,
   displayShareDialog: true,

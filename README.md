@@ -135,18 +135,50 @@ endDate: "Present"    # or YYYY-MM format
 ```
 
 #### Skills (skills.md)
+The `skills.md` file in the `content/` directory allows you to organize your skills into logical categories (e.g., Programming Languages, Frontend Development, Languages, etc.). Each category can contain multiple skills, providing a clear structure to your skillset.
+
+Example `content/skills.md`:
 ```markdown
 ---
-skills:
-  - JavaScript
-  - React
-  - Node.js
-  - TypeScript
-  - AWS
-  - Docker
-  - Git
-  - Agile Methodologies
+skillCategories:
+  - category: Programming Languages
+    skills:
+      - TypeScript
+      - JavaScript
+      - SQL
+  - category: Frontend Development
+    skills:
+      - React
+      - HTML/CSS
+  - category: Backend Development
+    skills:
+      - Node.js
+      - Express
+      - MongoDB
+  - category: DevOps & Tools
+    skills:
+      - AWS
+      - Docker
+      - Git
 ---
+```
+
+The skills can be displayed in two different modes:
+
+1. **Categorized Display** (default): Skills are grouped and displayed under their respective category headings.
+![Skills with Categories](./public/skills_w_categories.png)
+*Skills displayed with categories enabled*
+
+2. **Flat List Display**: All skills are shown in a single list without category headers.
+![Skills without Categories](./public/skills_wo_categories.png)
+*Skills displayed without categories*
+
+You can switch between these display modes by configuring the `displaySkillCategories` setting in `site.config.ts`:
+```typescript
+const siteConfig = {
+  displaySkillCategories: true,  // Set to false for flat list display
+  // ... other config options
+};
 ```
 
 ### 3. Theme Configuration
