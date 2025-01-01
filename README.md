@@ -31,6 +31,9 @@ content/
 │   └── 002-previous-job.md
 ├── education/          # Educational background
 │   └── 001-bachelor-computer-science.md
+├── publications/       # Academic or professional publications
+│   ├── 001-latest-paper.md
+│   └── 002-conference-paper.md
 ├── legalnotice.md     # Optional legal notice page
 └── dataprivacypolicy.md # Optional data privacy policy page
 ```
@@ -77,6 +80,9 @@ content/
 │   └── 002-previous-job.md
 ├── education/           # Required: Educational background
 │   └── 001-bachelor-computer-science.md
+├── publications/        # Required: Academic or professional publications
+│   ├── 001-latest-paper.md
+│   └── 002-conference-paper.md
 ├── legalnotice.md       # Optional: Legal notice
 └── dataprivacypolicy.md # Optional: Privacy policy
 ```
@@ -134,6 +140,26 @@ endDate: "Present"    # or YYYY-MM format
 - Notable project
 ```
 
+#### Education Entries (education/*.md)
+Example: `content/education/001-bachelor-computer-science.md`:
+```markdown
+---
+title: "Bachelor of Science in Computer Science"
+institution: "University Name"
+startDate: "2019-09"  # YYYY-MM format
+endDate: "2023-06"    # YYYY-MM format or "Present"
+---
+
+Details about your education, such as:
+- Major areas of study
+- Notable achievements
+- Relevant coursework
+- Academic honors or awards
+- Special projects or research
+```
+
+Each education entry will be displayed in chronological order, with the most recent education appearing first. The content section supports markdown formatting, allowing you to include lists, links, and other formatted text.
+
 #### Skills (skills.md)
 The `skills.md` file in the `content/` directory allows you to organize your skills into logical categories (e.g., Programming Languages, Frontend Development, Languages, etc.). Each category can contain multiple skills, providing a clear structure to your skillset.
 
@@ -178,6 +204,38 @@ You can switch between these display modes by configuring the `displaySkillCateg
 const siteConfig = {
   displaySkillCategories: true,  // Set to false for flat list display
   // ... other config options
+};
+```
+
+#### Publications (publications/*.md)
+The `publications/` directory in the `content/` folder allows you to showcase your academic papers, professional publications, or other written works. Each publication is represented by a separate markdown file.
+
+Example: `content/publications/001-latest-paper.md`:
+```markdown
+---
+title: "Your Publication Title"
+authors: "Your Name, Co-Author Name"
+venue: "Journal or Conference Name"
+date: "2023-12"    # YYYY-MM format
+---
+
+Description of the publication, key findings, or abstract. You can include:
+- Research objectives
+- Methodology highlights
+- Key findings
+- Impact or citations
+- Links to full paper or DOI
+```
+
+The publications will be displayed in chronological order, with the most recent publications appearing first. All frontmatter fields (authors, venue, date) are optional - if a field is omitted, it will be skipped in the display without showing empty separators.
+
+To configure the Publications section headline, update `site.config.ts`:
+```typescript
+const siteConfig = {
+  texts: {
+    publicationSectionHeadlineText: "Publications",  // Customize section headline
+    // ... other config options
+  }
 };
 ```
 

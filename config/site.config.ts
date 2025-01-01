@@ -49,6 +49,7 @@ const siteConfig: SiteConfig = {
   texts: {
     summarySectionHeadlineText: "Summary",
     experienceSectionHeadlineText: "Experience",
+    publicationSectionHeadlineText: "Publications",
     skillsSectionHeadlineText: "Skills",
     educationSectionHeadlineText: "Education",
     statementText:

@@ -11,6 +11,7 @@ import {
   GraduationCap,
   Building2,
   Zap,
+  Book,
 } from "lucide-react";
 import { parseMarkdown } from "../lib/markdown";
 import { Metadata } from "next";
@@ -129,6 +130,18 @@ async function getPersonalDetailsForMetadata() {
   }
 }
 
+async function getPublications() {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/publications?t=${Date.now()}`,
+    {
+      cache: "no-store",
+      next: { revalidate: 0 },
+    }
+  );
+  if (!res.ok) return [];
+  return res.json();
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   const personalDetails = await getPersonalDetailsForMetadata();
 
@@ -213,15 +226,23 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Resume() {
-  const [personalDetails, skills, summary, experience, hasLegal, hasPrivacy] =
-    await Promise.all([
-      getPersonalDetails(),
-      getSkills(),
-      getSummary(),
-      getExperience(),
-      hasLegalNotice(),
-      hasDataPrivacyPolicy(),
-    ]);
+  const [
+    personalDetails,
+    skills,
+    summary,
+    experience,
+    publications,
+    hasLegal,
+    hasPrivacy,
+  ] = await Promise.all([
+    getPersonalDetails(),
+    getSkills(),
+    getSummary(),
+    getExperience(),
+    getPublications(),
+    hasLegalNotice(),
+    hasDataPrivacyPolicy(),
+  ]);
 
   const experiences = getExperience();
   const education = getEducation();
@@ -361,6 +382,35 @@ export default async function Resume() {
                       className="text-gray-600 dark:text-gray-300 leading-relaxed prose prose-teal dark:prose-invert max-w-none"
                       dangerouslySetInnerHTML={{
                         __html: parseMarkdown(exp.content),
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {publications.length > 0 && (
+            <section className="mb-10">
+              <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-900 dark:text-gray-100">
+                <Book className="w-6 h-6" />
+                {siteConfig.texts.publicationSectionHeadlineText}
+              </h2>
+              <div className="space-y-6">
+                {publications.map((pub: any) => (
+                  <div key={pub.id}>
+                    <h4 className="text-xl font-medium text-gray-800 dark:text-gray-100">
+                      {pub.title}
+                    </h4>
+                    <p className="text-teal-600 dark:text-teal-400">
+                      {[pub.authors, pub.venue, pub.date]
+                        .filter(Boolean)
+                        .join(" | ")}
+                    </p>
+                    <div
+                      className="text-gray-600 dark:text-gray-300 leading-relaxed prose prose-teal dark:prose-invert max-w-none"
+                      dangerouslySetInnerHTML={{
+                        __html: parseMarkdown(pub.content),
                       }}
                     />
                   </div>
