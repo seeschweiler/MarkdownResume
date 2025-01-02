@@ -3,6 +3,8 @@ import { DarkModeToggle } from "@/components/DarkModeToggle";
 import { parseMarkdown } from "../../lib/markdown";
 import siteConfig from "@/config/site.config";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   robots: "noindex",
 };
