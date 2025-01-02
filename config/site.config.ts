@@ -37,6 +37,7 @@
 import { SiteConfig } from "@/types/site-config";
 
 const siteConfig: SiteConfig = {
+  // Theme and display settings
   activeTheme: "default",
   displaySkillCategories: true,
   displayStatement: true,
@@ -46,39 +47,61 @@ const siteConfig: SiteConfig = {
   displayShareDialogTabEmail: true,
   displayShareDialogTabQRCode: true,
   displayShareDialogTabContact: true,
+
+  // Organized text configurations
   texts: {
-    summarySectionHeadlineText: "Summary",
-    experienceSectionHeadlineText: "Experience",
-    publicationSectionHeadlineText: "Publications",
-    skillsSectionHeadlineText: "Skills",
-    educationSectionHeadlineText: "Education",
-    statementText:
-      "Bridging the gap between technology and business to drive meaningful impact.",
-    legalNoticeLinkText: "Legal Notice",
-    dataPrivacyPolicyLinkText: "Data Privacy Policy",
-    backLinkText: "Back to Resume",
-    metadataFallbackName: "Professional Resume",
-    metadataFallbackRole: "Professional Profile",
-    metadataDescriptionPrefix: "Professional resume",
-    metadataDescriptionSuffix:
-      "View professional experience, skills, and education",
-    metadataKeywords: [
-      "resume",
-      "curriculum vitae",
-      "cv",
-      "professional experience",
-      "skills",
-    ],
-    shareDialogHeadlineText: "Share Resume",
-    shareDialogEmailSubject: "Check out this resume",
-    shareDialogEmailBody: "I thought you might be interested in this resume:",
-    shareDialogLinkTabText:
-      "Copy the direct link to share this resume with others",
-    shareDialogQRCodeTabText:
-      "Scan or copy the QR code to open this resume on a mobile device",
-    shareDialogEmailTabText: "Send this resume directly via email",
-    shareDialogContactTabText:
-      "Download contact information as a virtual business card (vCard)",
+    // Section Headlines
+    headlines: {
+      summary: "Summary",
+      experience: "Experience",
+      publications: "Publications",
+      skills: "Skills",
+      education: "Education",
+    },
+
+    // Statement
+    statement: {
+      text: "Bridging the gap between technology and business to drive meaningful impact.",
+    },
+
+    // Navigation & Links
+    links: {
+      legalNotice: "Legal Notice",
+      dataPrivacyPolicy: "Data Privacy Policy",
+      backToResume: "Back to Resume",
+    },
+
+    // SEO Metadata
+    metadata: {
+      fallbackName: "Professional Resume",
+      fallbackRole: "Professional Profile",
+      descriptionPrefix: "Professional resume",
+      descriptionSuffix: "View professional experience, skills, and education",
+      keywords: [
+        "resume",
+        "curriculum vitae",
+        "cv",
+        "professional experience",
+        "skills",
+      ],
+    },
+
+    // Share Dialog
+    shareDialog: {
+      headline: "Share Resume",
+      email: {
+        subject: "Check out this resume",
+        body: "I thought you might be interested in this resume:",
+      },
+      tabs: {
+        link: "Copy the direct link to share this resume with others",
+        qrCode:
+          "Scan or copy the QR code to open this resume on a mobile device",
+        email: "Send this resume directly via email",
+        contact:
+          "Download contact information as a virtual business card (vCard)",
+      },
+    },
   },
 };
 

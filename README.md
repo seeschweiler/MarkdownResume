@@ -12,10 +12,10 @@ MarkdownResume is a modern, hassle-free solution for creating your professional 
 - 🌗 **Dark/Light Mode**: Automatic theme switching with system preferences support
 - 📱 **Fully Responsive**: Optimized for mobile, tablet, and desktop viewing
 - 📝 **Markdown-Based**: All content is managed through simple Markdown files
-- 🔄 **Real-time Updates**: Changes to content files are immediately reflected
 - 🎯 **SEO Ready**: Built-in metadata management for better search engine visibility
 - 📄 **Legal Compliance**: Integrated support for Legal Notice and Data Privacy Policy pages
 - 🔗 **Share Options**: Comprehensive sharing functionality with link, QR code, email, and vCard options
+- 🌐 **Configurable Text**: All website text can be easily customized through configuration settings, perfect for translations
 
 ## Content Structure
 
@@ -110,6 +110,9 @@ npm start
 All content is managed through markdown files in the `content` directory. Each section of your resume is represented by specific markdown files with YAML frontmatter.
 
 #### Personal Details (personal-details.md)
+
+The `personal-details.md` file in the `content/` directory contains your personal information and contact details. This file is used to display your name, professional title, contact information, location, and social media links.
+
 ```markdown
 ---
 name: "Your Name"
@@ -126,6 +129,11 @@ avatar: "/profile_avatar.png"  # Used for profile display and vCard contact phot
 ```
 
 #### Experience Entries (experience/*.md)
+
+Experience entries are stored in markdown files within the `content/experience` directory. Each file represents a single work experience, such as a job, internship, or freelance project. The files should follow the naming convention `[order]-[description].md`, where `order` helps maintain the desired display sequence.
+
+The experience entries are displayed in chronological order, with the most recent experience appearing first. The content section supports markdown formatting, allowing you to include lists, links, and other formatted text.
+
 Example: `content/experience/001-current-job.md`:
 ```markdown
 ---
@@ -141,6 +149,11 @@ endDate: "Present"    # or YYYY-MM format
 ```
 
 #### Education Entries (education/*.md)
+
+Education entries are stored in markdown files within the `content/education` directory. Each file represents a single educational milestone, such as a degree, certification, or training program. The files should follow the naming convention `[order]-[description].md`, where `order` helps maintain the desired display sequence.
+
+The education entries are displayed in chronological order, with the most recent education appearing first. The content section supports markdown formatting, allowing you to include lists, links, and other formatted text.
+
 Example: `content/education/001-bachelor-computer-science.md`:
 ```markdown
 ---
@@ -158,9 +171,8 @@ Details about your education, such as:
 - Special projects or research
 ```
 
-Each education entry will be displayed in chronological order, with the most recent education appearing first. The content section supports markdown formatting, allowing you to include lists, links, and other formatted text.
-
 #### Skills (skills.md)
+
 The `skills.md` file in the `content/` directory allows you to organize your skills into logical categories (e.g., Programming Languages, Frontend Development, Languages, etc.). Each category can contain multiple skills, providing a clear structure to your skillset.
 
 Example `content/skills.md`:
@@ -208,7 +220,8 @@ const siteConfig = {
 ```
 
 #### Publications (publications/*.md)
-The `publications/` directory in the `content/` folder allows you to showcase your academic papers, professional publications, or other written works. Each publication is represented by a separate markdown file.
+
+Publications are stored in markdown files within the `content/publications` directory. Each file represents a single publication, such as a paper, article, or other written work. The files should follow the naming convention `[order]-[description].md`, where `order` helps maintain the desired display sequence.
 
 Example: `content/publications/001-latest-paper.md`:
 ```markdown
@@ -229,42 +242,56 @@ Description of the publication, key findings, or abstract. You can include:
 
 The publications will be displayed in chronological order, with the most recent publications appearing first. All frontmatter fields (authors, venue, date) are optional - if a field is omitted, it will be skipped in the display without showing empty separators.
 
-To configure the Publications section headline, update `site.config.ts`:
-```typescript
-const siteConfig = {
-  texts: {
-    publicationSectionHeadlineText: "Publications",  // Customize section headline
-    // ... other config options
-  }
-};
-```
-
 ### 3. Theme Configuration
+
+The application comes with a built-in theme system that offers multiple color schemes and a theme selector component.
+
+#### Available Themes
+
+The following themes are available out of the box:
+
+1. **Default**: A clean, professional color scheme with subtle teal accents
+2. **Blue**: Modern blue tones for a trustworthy, corporate feel
+3. **Purple**: Rich purple hues for a creative, innovative appearance
+4. **Green**: Fresh green tones emphasizing growth and sustainability
+5. **Rose**: Warm rose colors for a friendly, approachable style
+6. **Amber**: Vibrant amber shades for an energetic, dynamic look
+7. **Teal**: Deep teal tones for a sophisticated, technical impression
+
+Each theme includes carefully selected color combinations for:
+- Primary and secondary backgrounds
+- Text colors (primary, secondary, accent)
+- Interactive elements
+- Footer sections
+
+#### Theme Configuration
 
 Edit `config/site.config.ts` to configure your theme preferences:
 
 ```typescript
 const siteConfig = {
-  activeTheme: "default", // Choose your default theme
+  // Theme and display settings
+  activeTheme: "default", // Choose from: "default", "blue", "purple", "green", "rose", "amber", "teal"
   displayThemeSelector: true, // Enable/disable theme selector in UI
-  displayShareDialog: true, // Enable/disable share dialog
-  displayStatement: true, // Enable/disable personal statement
-  texts: {
-    // Section headings customization
-    summarySectionHeadlineText: "Summary",
-    experienceSectionHeadlineText: "Experience",
-    skillsSectionHeadlineText: "Skills",
-    educationSectionHeadlineText: "Education",
-    statementText: "Your personal statement or motto",
-    // Share dialog texts
-    shareDialogHeadlineText: "Share Resume",
-    shareDialogEmailSubject: "Check out this resume",
-    shareDialogEmailBody: "I thought you might be interested in this resume:",
-  }
+  // ... other config options
 };
 ```
 
-### 4. Share Configuration
+#### Theme Selector
+
+When `displayThemeSelector` is enabled, a theme selection component will appear in the UI, allowing users to switch between different themes in real-time:
+
+![Theme Selector](./public/theme-selector.png)
+
+The theme selector provides:
+- Visual preview of each theme's colors
+- Active theme indication
+- Smooth transition animations between themes
+- Persistent theme selection (saved in browser)
+
+All themes are designed to work seamlessly with both light and dark modes, ensuring a consistent and professional appearance across all color schemes and viewing preferences.
+
+### 4. Share Dialog Configuration
 
 The application includes a comprehensive sharing system that allows visitors to easily share the resume through various methods.
 
@@ -272,72 +299,130 @@ The application includes a comprehensive sharing system that allows visitors to 
 
 #### Share Dialog Features
 
-The share dialog provides four sharing methods:
+The share dialog provides four sharing methods that can be individually enabled or disabled through the configuration:
 
 1. **Link Sharing**:
    - Displays the current URL
    - One-click copy to clipboard
-   - Visual confirmation when copied
+   - Enable/disable via `displayShareDialogTabLink`
 
 2. **QR Code**:
    - Generates a QR code for the current URL
-   - Copy QR code as image
    - Perfect for mobile access
+   - Enable/disable via `displayShareDialogTabQRCode`
 
 3. **Email Sharing**:
    - Opens default email client
-   - Pre-filled subject and body
-   - Customizable message template
+   - Customizable subject and body text
+   - Enable/disable via `displayShareDialogTabEmail`
 
-4. **vCard Download**:
-   - Download contact information as a virtual business card
-   - Compatible with most contact management systems
-   - Includes name, email, phone, website, and profile avatar
-   - Profile picture automatically syncs with contact applications
+4. **Contact (vCard Download)**:
+   - Download contact information as virtual business card
+   - Compatible with contact management applications
+   - Enable/disable via `displayShareDialogTabContact`
 
-To configure the share dialog, update `site.config.ts`:
+Configure the share dialog in `site.config.ts`:
+
+The share dialog configuration allows you to customize:
+
+- `displayShareDialog`: Master toggle to show/hide the entire share functionality
+- `displayShareDialogTabLink`: Toggle the URL sharing tab
+- `displayShareDialogTabEmail`: Toggle the email sharing tab  
+- `displayShareDialogTabQRCode`: Toggle the QR code sharing tab
+- `displayShareDialogTabContact`: Toggle the vCard contact download tab
+
+The dialog text content can be customized through `texts.shareDialog`:
+
+- `headline`: The dialog title
+- `email.subject`: Default subject line for email sharing
+- `email.body`: Default email body text
+- `tabs`: Description text for each sharing method tab
+
+Here is an example of how to configure the share dialog:
 
 ```typescript
-const siteConfig = {
-  displayShareDialog: true,  // Enable/disable the main share dialog
-  displayShareDialogTabLink: true,  // Enable/disable link sharing tab
-  displayShareDialogTabEmail: true,  // Enable/disable email sharing tab
-  displayShareDialogTabQRCode: true,  // Enable/disable QR code tab
-  displayShareDialogTabContact: true,  // Enable/disable contact download tab
+const siteConfig: SiteConfig = {
+  // Main share dialog toggle
+  displayShareDialog: true,
+  
+  // Individual feature toggles
+  displayShareDialogTabLink: true,
+  displayShareDialogTabEmail: true,
+  displayShareDialogTabQRCode: true,
+  displayShareDialogTabContact: true,
+
   texts: {
-    shareDialogHeadlineText: "Share Resume",
-    shareDialogEmailSubject: "Check out this resume",
-    shareDialogEmailBody: "I thought you might be interested in this resume:",
-    shareDialogLinkTabText: "Copy the direct link to share this resume with others",
-    shareDialogQRCodeTabText: "Scan or copy the QR code to open this resume on a mobile device",
-    shareDialogEmailTabText: "Send this resume directly via email",
-    shareDialogContactTabText: "Download contact information as a virtual business card (vCard)"
+    shareDialog: {
+      headline: "Share Resume",
+      email: {
+        subject: "Check out this resume",
+        body: "I thought you might be interested in this resume:"
+      },
+      tabs: {
+        link: "Copy the direct link to share this resume with others",
+        qrCode: "Scan or copy the QR code to open this resume on a mobile device",
+        email: "Send this resume directly via email",
+        contact: "Download contact information as a virtual business card (vCard)"
+      }
+    }
   }
 };
 ```
+
+All dialog texts can be customized through the `texts.shareDialog` configuration object.
 
 ### 5. SEO Configuration
 
-The `site.config.ts` file provides extensive SEO customization options:
+### 5. SEO Configuration
+
+The `site.config.ts` file provides SEO customization through the `texts.metadata` configuration object:
 
 ```typescript
-const siteConfig = {
+const siteConfig: SiteConfig = {
   texts: {
-    // SEO Metadata
-    metadataFallbackName: "Professional Resume",
-    metadataFallbackRole: "Professional Profile",
-    metadataDescriptionPrefix: "Professional resume",
-    metadataDescriptionSuffix: "View professional experience, skills, and education",
-    metadataKeywords: [
-      "resume",
-      "curriculum vitae",
-      "cv",
-      "professional experience",
-      "skills",
-    ],
+    metadata: {
+      fallbackName: "Professional Resume",      // Default name if personal details are not available
+      fallbackRole: "Professional Profile",     // Default role if personal details are not available
+      descriptionPrefix: "Professional resume", // First part of meta description
+      descriptionSuffix: "View professional experience, skills, and education", // Last part of meta description
+      keywords: [                              // Meta keywords for search engines
+        "resume",
+        "curriculum vitae",
+        "cv",
+        "professional experience",
+        "skills",
+      ],
+    }
   }
 };
 ```
+
+### 6. Section Headline Text Configuration  
+
+### 6. Section Headline Text Configuration
+
+Section headlines can be customized through the `texts.headlines` configuration in `site.config.ts`:
+
+```typescript
+const siteConfig: SiteConfig = {
+  texts: {
+    headlines: {
+      summary: "Summary",         // Headline for the summary section
+      experience: "Experience",   // Headline for work experience
+      publications: "Publications", // Headline for publications list
+      skills: "Skills",          // Headline for skills section
+      education: "Education"      // Headline for education section
+    }
+  }
+};
+```
+
+This configuration allows you to:
+- Customize the text for each major section of your resume
+- Support multiple languages by changing the headline text
+- Maintain consistent heading structure throughout the application
+
+The headlines will be displayed at the top of their respective sections in the resume layout.
 
 ## Environment Variables
 

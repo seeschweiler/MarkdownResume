@@ -159,11 +159,12 @@ export function ShareDialog() {
   };
 
   const shareViaEmail = () => {
-    window.location.href = `mailto:?subject=${encodeURIComponent(
-      siteConfig.texts.shareDialogEmailSubject
+    const mailtoLink = `mailto:?subject=${encodeURIComponent(
+      siteConfig.texts.shareDialog.email.subject
     )}&body=${encodeURIComponent(
-      `${siteConfig.texts.shareDialogEmailBody} ${resumeUrl}`
+      siteConfig.texts.shareDialog.email.body + "\n\n" + resumeUrl
     )}`;
+    window.location.href = mailtoLink;
   };
 
   const copyQRCode = async (e: React.MouseEvent) => {
@@ -268,7 +269,7 @@ export function ShareDialog() {
         return (
           <div className="flex flex-col space-y-4">
             <p className="text-sm text-theme-text-secondary text-center">
-              {siteConfig.texts.shareDialogLinkTabText}
+              {siteConfig.texts.shareDialog.tabs.link}
             </p>
             <div className="flex space-x-2">
               <input
@@ -288,7 +289,7 @@ export function ShareDialog() {
             onClick={(e) => e.preventDefault()}
           >
             <p className="text-sm text-theme-text-secondary text-center">
-              {siteConfig.texts.shareDialogQRCodeTabText}
+              {siteConfig.texts.shareDialog.tabs.qrCode}
             </p>
             <QRCodeSVG value={resumeUrl} size={200} ref={qrCodeRef} />
             <QRCopyButton
@@ -302,7 +303,7 @@ export function ShareDialog() {
         return (
           <div className="flex flex-col space-y-4">
             <p className="text-sm text-theme-text-secondary text-center">
-              {siteConfig.texts.shareDialogEmailTabText}
+              {siteConfig.texts.shareDialog.tabs.email}
             </p>
             <button
               onClick={shareViaEmail}
@@ -317,7 +318,7 @@ export function ShareDialog() {
         return (
           <div className="flex flex-col items-center space-y-4">
             <p className="text-sm text-theme-text-secondary text-center">
-              {siteConfig.texts.shareDialogContactTabText}
+              {siteConfig.texts.shareDialog.tabs.contact}
             </p>
             <button
               onClick={downloadVCard}
@@ -368,7 +369,7 @@ export function ShareDialog() {
                 <div className="p-6 relative">
                   <div className="flex items-center mb-4">
                     <h2 className="text-lg font-semibold text-theme-text-primary flex-1">
-                      {siteConfig.texts.shareDialogHeadlineText}
+                      {siteConfig.texts.shareDialog.headline}
                     </h2>
                     <button
                       onClick={() => setIsOpen(false)}

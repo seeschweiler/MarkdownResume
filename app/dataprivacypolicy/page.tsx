@@ -70,16 +70,16 @@ export default async function DataPrivacyPolicy() {
               <a
                 href="/legalnotice"
                 className="text-sm text-gray-600 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
-                aria-label={siteConfig.texts.legalNoticeLinkText}
+                aria-label={siteConfig.texts.links.legalNotice}
               >
-                {siteConfig.texts.legalNoticeLinkText}
+                {siteConfig.texts.links.legalNotice}
               </a>
             )}
             <a
               href="/"
               className="text-sm text-gray-600 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
             >
-              {siteConfig.texts.backLinkText}
+              {siteConfig.texts.links.backToResume}
             </a>
           </nav>
         </footer>

@@ -147,13 +147,13 @@ export async function generateMetadata(): Promise<Metadata> {
 
   // Safer fallbacks for all values using config
   const name =
-    personalDetails?.name?.trim() || siteConfig.texts.metadataFallbackName;
+    personalDetails?.name?.trim() || siteConfig.texts.metadata.fallbackName;
   const role =
-    personalDetails?.role?.trim() || siteConfig.texts.metadataFallbackRole;
-  const description = `${siteConfig.texts.metadataDescriptionPrefix}${
-    name !== siteConfig.texts.metadataFallbackName ? ` of ${name}` : ""
-  }${role !== siteConfig.texts.metadataFallbackRole ? ` - ${role}` : ""}. ${
-    siteConfig.texts.metadataDescriptionSuffix
+    personalDetails?.role?.trim() || siteConfig.texts.metadata.fallbackRole;
+  const description = `${siteConfig.texts.metadata.descriptionPrefix}${
+    name !== siteConfig.texts.metadata.fallbackName ? ` of ${name}` : ""
+  }${role !== siteConfig.texts.metadata.fallbackRole ? ` - ${role}` : ""}. ${
+    siteConfig.texts.metadata.descriptionSuffix
   }.`;
 
   // Safely get skills array
@@ -172,42 +172,42 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title:
-      name !== siteConfig.texts.metadataFallbackName
+      name !== siteConfig.texts.metadata.fallbackName
         ? `${name} - ${role}`
-        : siteConfig.texts.metadataFallbackName,
+        : siteConfig.texts.metadata.fallbackName,
     description,
     keywords: [
-      name !== siteConfig.texts.metadataFallbackName ? name : null,
-      role !== siteConfig.texts.metadataFallbackRole ? role : null,
-      ...siteConfig.texts.metadataKeywords,
+      name !== siteConfig.texts.metadata.fallbackName ? name : null,
+      role !== siteConfig.texts.metadata.fallbackRole ? role : null,
+      ...siteConfig.texts.metadata.keywords,
       ...skills,
     ].filter(Boolean),
     authors:
-      name !== siteConfig.texts.metadataFallbackName ? [{ name }] : undefined,
-    creator: name !== siteConfig.texts.metadataFallbackName ? name : undefined,
+      name !== siteConfig.texts.metadata.fallbackName ? [{ name }] : undefined,
+    creator: name !== siteConfig.texts.metadata.fallbackName ? name : undefined,
     openGraph: {
       type: "profile",
       title:
-        name !== siteConfig.texts.metadataFallbackName
+        name !== siteConfig.texts.metadata.fallbackName
           ? `${name} - Professional Resume`
-          : siteConfig.texts.metadataFallbackName,
+          : siteConfig.texts.metadata.fallbackName,
       description,
       ...(avatarUrl && { images: [avatarUrl] }),
       profile: {
-        ...(name !== siteConfig.texts.metadataFallbackName && {
+        ...(name !== siteConfig.texts.metadata.fallbackName && {
           firstName: name.split(" ")[0],
           lastName: name.split(" ").slice(1).join(" "),
           username: name.toLowerCase().replace(/\s/g, ""),
         }),
-        ...(role !== siteConfig.texts.metadataFallbackRole && { role }),
+        ...(role !== siteConfig.texts.metadata.fallbackRole && { role }),
       },
     },
     twitter: {
       card: "summary",
       title:
-        name !== siteConfig.texts.metadataFallbackName
+        name !== siteConfig.texts.metadata.fallbackName
           ? `${name} - ${role}`
-          : siteConfig.texts.metadataFallbackName,
+          : siteConfig.texts.metadata.fallbackName,
       description,
       ...(avatarUrl && { images: [avatarUrl] }),
     },
@@ -352,7 +352,7 @@ export default async function Resume() {
             <section className="mb-10">
               <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-900 dark:text-gray-100">
                 <FileText className="w-6 h-6" />
-                {siteConfig.texts.summarySectionHeadlineText}
+                {siteConfig.texts.headlines.summary}
               </h2>
               <div
                 className="text-gray-600 dark:text-gray-300 leading-relaxed prose prose-teal dark:prose-invert max-w-none"
@@ -367,7 +367,7 @@ export default async function Resume() {
             <section className="mb-10">
               <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-900 dark:text-gray-100">
                 <Building2 className="w-6 h-6" />
-                {siteConfig.texts.experienceSectionHeadlineText}
+                {siteConfig.texts.headlines.experience}
               </h2>
               <div className="space-y-6">
                 {experience.map((exp: any, index: number) => (
@@ -394,7 +394,7 @@ export default async function Resume() {
             <section className="mb-10">
               <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-900 dark:text-gray-100">
                 <Book className="w-6 h-6" />
-                {siteConfig.texts.publicationSectionHeadlineText}
+                {siteConfig.texts.headlines.publications}
               </h2>
               <div className="space-y-6">
                 {publications.map((pub: any) => (
@@ -423,7 +423,7 @@ export default async function Resume() {
             <section className="mb-10">
               <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-900 dark:text-gray-100">
                 <Zap className="w-6 h-6" />
-                {siteConfig.texts.skillsSectionHeadlineText}
+                {siteConfig.texts.headlines.skills}
               </h2>
               {siteConfig.displaySkillCategories ? (
                 <div className="space-y-6">
@@ -466,7 +466,7 @@ export default async function Resume() {
             <section className="mb-12">
               <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-900 dark:text-gray-100">
                 <GraduationCap className="w-6 h-6" />
-                {siteConfig.texts.educationSectionHeadlineText}
+                {siteConfig.texts.headlines.education}
               </h2>
               <div className="space-y-6">
                 {education.map((edu) => (
@@ -493,7 +493,7 @@ export default async function Resume() {
         {siteConfig.displayStatement && (
           <footer className="bg-[var(--theme-footer-primary)] text-theme-text-primary text-center py-4 transition-colors duration-200">
             <p className="text-gray-600 dark:text-gray-300 italic">
-              {siteConfig.texts.statementText}
+              {siteConfig.texts.statement.text}
             </p>
           </footer>
         )}
@@ -504,18 +504,18 @@ export default async function Resume() {
               <a
                 href="/legalnotice"
                 className="text-sm text-gray-600 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
-                aria-label={siteConfig.texts.legalNoticeLinkText}
+                aria-label={siteConfig.texts.links.legalNotice}
               >
-                {siteConfig.texts.legalNoticeLinkText}
+                {siteConfig.texts.links.legalNotice}
               </a>
             )}
             {hasPrivacy && (
               <a
                 href="/dataprivacypolicy"
                 className="text-sm text-gray-600 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
-                aria-label={siteConfig.texts.dataPrivacyPolicyLinkText}
+                aria-label={siteConfig.texts.links.dataPrivacyPolicy}
               >
-                {siteConfig.texts.dataPrivacyPolicyLinkText}
+                {siteConfig.texts.links.dataPrivacyPolicy}
               </a>
             )}
           </nav>

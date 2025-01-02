@@ -48,7 +48,7 @@ export default async function LegalNotice() {
               href="/"
               className="text-sm text-gray-600 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
             >
-              {siteConfig.texts.backLinkText}
+              {siteConfig.texts.links.backToResume}
             </a>
           </nav>
         </footer>

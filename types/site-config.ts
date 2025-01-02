@@ -15,27 +15,46 @@ export interface SiteConfig {
   displayShareDialogTabQRCode: boolean;
   displayShareDialogTabContact: boolean;
   displayStatement: boolean;
+
   texts: {
-    summarySectionHeadlineText: string;
-    experienceSectionHeadlineText: string;
-    skillsSectionHeadlineText: string;
-    educationSectionHeadlineText: string;
-    statementText: string;
-    legalNoticeLinkText: string;
-    dataPrivacyPolicyLinkText: string;
-    backLinkText: string;
-    metadataFallbackName: string;
-    metadataFallbackRole: string;
-    metadataDescriptionPrefix: string;
-    metadataDescriptionSuffix: string;
-    metadataKeywords: string[];
-    shareDialogHeadlineText: string;
-    shareDialogEmailSubject: string;
-    shareDialogEmailBody: string;
-    shareDialogLinkTabText: string;
-    shareDialogQRCodeTabText: string;
-    shareDialogEmailTabText: string;
-    shareDialogContactTabText: string;
-    publicationSectionHeadlineText: string;
+    headlines: {
+      summary: string;
+      experience: string;
+      publications: string;
+      skills: string;
+      education: string;
+    };
+
+    statement: {
+      text: string;
+    };
+
+    links: {
+      legalNotice: string;
+      dataPrivacyPolicy: string;
+      backToResume: string;
+    };
+
+    metadata: {
+      fallbackName: string;
+      fallbackRole: string;
+      descriptionPrefix: string;
+      descriptionSuffix: string;
+      keywords: string[];
+    };
+
+    shareDialog: {
+      headline: string;
+      email: {
+        subject: string;
+        body: string;
+      };
+      tabs: {
+        link: string;
+        qrCode: string;
+        email: string;
+        contact: string;
+      };
+    };
   };
 }
