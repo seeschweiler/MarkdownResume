@@ -301,9 +301,9 @@ To configure the share dialog, update `site.config.ts`:
 const siteConfig = {
   displayShareDialog: true,  // Enable/disable the main share dialog
   displayShareDialogTabLink: true,  // Enable/disable link sharing tab
-  displayShareDialogEmailLink: true,  // Enable/disable email sharing tab
-  displayShareDialogQRCodeLink: true,  // Enable/disable QR code tab
-  displayShareDialogDownloadLink: true,  // Enable/disable vCard download tab
+  displayShareDialogTabEmail: true,  // Enable/disable email sharing tab
+  displayShareDialogTabQRCode: true,  // Enable/disable QR code tab
+  displayShareDialogTabContact: true,  // Enable/disable contact download tab
   texts: {
     shareDialogHeadlineText: "Share Resume",
     shareDialogEmailSubject: "Check out this resume",
@@ -311,7 +311,7 @@ const siteConfig = {
     shareDialogLinkTabText: "Copy the direct link to share this resume with others",
     shareDialogQRCodeTabText: "Scan or copy the QR code to open this resume on a mobile device",
     shareDialogEmailTabText: "Send this resume directly via email",
-    shareDialogVCardTabText: "Download contact information as a virtual business card (vCard)"
+    shareDialogContactTabText: "Download contact information as a virtual business card (vCard)"
   }
 };
 ```

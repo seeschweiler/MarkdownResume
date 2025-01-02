@@ -43,9 +43,9 @@ const siteConfig: SiteConfig = {
   displayThemeSelector: false,
   displayShareDialog: true,
   displayShareDialogTabLink: true,
-  displayShareDialogEmailLink: true,
-  displayShareDialogQRCodeLink: true,
-  displayShareDialogDownloadLink: true,
+  displayShareDialogTabEmail: true,
+  displayShareDialogTabQRCode: true,
+  displayShareDialogTabContact: true,
   texts: {
     summarySectionHeadlineText: "Summary",
     experienceSectionHeadlineText: "Experience",
@@ -77,7 +77,7 @@ const siteConfig: SiteConfig = {
     shareDialogQRCodeTabText:
       "Scan or copy the QR code to open this resume on a mobile device",
     shareDialogEmailTabText: "Send this resume directly via email",
-    shareDialogVCardTabText:
+    shareDialogContactTabText:
       "Download contact information as a virtual business card (vCard)",
   },
 };

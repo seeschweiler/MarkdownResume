@@ -93,15 +93,15 @@ export function ShareDialog() {
           id: "link",
           label: "Link",
         },
-        siteConfig.displayShareDialogQRCodeLink && {
+        siteConfig.displayShareDialogTabQRCode && {
           id: "qr",
           label: "QR Code",
         },
-        siteConfig.displayShareDialogEmailLink && {
+        siteConfig.displayShareDialogTabEmail && {
           id: "email",
           label: "Email",
         },
-        siteConfig.displayShareDialogDownloadLink && {
+        siteConfig.displayShareDialogTabContact && {
           id: "vcard",
           label: "Contact",
         },
@@ -317,7 +317,7 @@ export function ShareDialog() {
         return (
           <div className="flex flex-col items-center space-y-4">
             <p className="text-sm text-theme-text-secondary text-center">
-              {siteConfig.texts.shareDialogVCardTabText}
+              {siteConfig.texts.shareDialogContactTabText}
             </p>
             <button
               onClick={downloadVCard}

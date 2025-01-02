@@ -11,9 +11,9 @@ export interface SiteConfig {
   displayThemeSelector: boolean;
   displayShareDialog: boolean;
   displayShareDialogTabLink: boolean;
-  displayShareDialogEmailLink: boolean;
-  displayShareDialogQRCodeLink: boolean;
-  displayShareDialogDownloadLink: boolean;
+  displayShareDialogTabEmail: boolean;
+  displayShareDialogTabQRCode: boolean;
+  displayShareDialogTabContact: boolean;
   displayStatement: boolean;
   texts: {
     summarySectionHeadlineText: string;
@@ -35,7 +35,7 @@ export interface SiteConfig {
     shareDialogLinkTabText: string;
     shareDialogQRCodeTabText: string;
     shareDialogEmailTabText: string;
-    shareDialogVCardTabText: string;
+    shareDialogContactTabText: string;
     publicationSectionHeadlineText: string;
   };
 }
