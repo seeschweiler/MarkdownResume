@@ -7,8 +7,8 @@ import siteConfig from "@/config/site.config";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: siteConfig.texts.metadataFallbackName,
-  description: `${siteConfig.texts.metadataDescriptionPrefix}. ${siteConfig.texts.metadataDescriptionSuffix}`,
+  title: siteConfig.texts.metadata.fallbackName,
+  description: `${siteConfig.texts.metadata.descriptionPrefix}. ${siteConfig.texts.metadata.descriptionSuffix}`,
 };
 
 export default function RootLayout({
