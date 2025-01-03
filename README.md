@@ -373,8 +373,6 @@ All dialog texts can be customized through the `texts.shareDialog` configuration
 
 ### 5. SEO Configuration
 
-### 5. SEO Configuration
-
 The `site.config.ts` file provides SEO customization through the `texts.metadata` configuration object:
 
 ```typescript
@@ -398,8 +396,6 @@ const siteConfig: SiteConfig = {
 ```
 
 ### 6. Section Headline Text Configuration  
-
-### 6. Section Headline Text Configuration
 
 Section headlines can be customized through the `texts.headlines` configuration in `site.config.ts`:
 
