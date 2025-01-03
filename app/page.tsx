@@ -287,7 +287,12 @@ export default async function Resume() {
             {personalDetails.contact?.email && (
               <div className="flex items-center">
                 <Mail className="w-5 h-5 mr-2 text-teal-500 dark:text-teal-400" />
-                <span>{personalDetails.contact.email}</span>
+                <a
+                  href={`mailto:${personalDetails.contact.email}`}
+                  className="hover:text-teal-600 dark:hover:text-teal-300 transition-colors"
+                >
+                  {personalDetails.contact.email}
+                </a>
               </div>
             )}
             {personalDetails.contact?.phone && (
