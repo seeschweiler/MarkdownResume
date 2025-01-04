@@ -22,6 +22,7 @@ import { getEducation } from "@/lib/education";
 
 import siteConfig from "@/config/site.config";
 import { SkillCategory } from "@/types/skills";
+import { AchievementTimeline } from "@/components/AchievementTimeline";
 
 async function getPersonalDetails() {
   const res = await fetch(
@@ -142,6 +143,18 @@ async function getPublications() {
   return res.json();
 }
 
+async function getAchievements() {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/achievements?t=${Date.now()}`,
+    {
+      cache: "no-store",
+      next: { revalidate: 0 },
+    }
+  );
+  if (!res.ok) return [];
+  return res.json();
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   const personalDetails = await getPersonalDetailsForMetadata();
 
@@ -232,6 +245,7 @@ export default async function Resume() {
     summary,
     experience,
     publications,
+    achievements,
     hasLegal,
     hasPrivacy,
   ] = await Promise.all([
@@ -240,6 +254,7 @@ export default async function Resume() {
     getSummary(),
     getExperience(),
     getPublications(),
+    getAchievements(),
     hasLegalNotice(),
     hasDataPrivacyPolicy(),
   ]);
@@ -393,6 +408,10 @@ export default async function Resume() {
                 ))}
               </div>
             </section>
+          )}
+
+          {achievements.length > 0 && (
+            <AchievementTimeline achievements={achievements} />
           )}
 
           {publications.length > 0 && (

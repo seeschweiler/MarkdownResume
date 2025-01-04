@@ -54,6 +54,7 @@ const siteConfig: SiteConfig = {
     headlines: {
       summary: "Summary",
       experience: "Experience",
+      achievements: "Achievements",
       publications: "Publications",
       skills: "Skills",
       education: "Education",

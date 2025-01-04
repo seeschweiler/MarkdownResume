@@ -20,6 +20,7 @@ export interface SiteConfig {
     headlines: {
       summary: string;
       experience: string;
+      achievements: string;
       publications: string;
       skills: string;
       education: string;
