@@ -34,6 +34,9 @@ content/
 ├── publications/       # Academic or professional publications
 │   ├── 001-latest-paper.md
 │   └── 002-conference-paper.md
+├── achievements/       # Professional achievements and awards
+│   ├── 001-latest-award.md
+│   └── 002-previous-award.md
 ├── legalnotice.md     # Optional legal notice page
 └── dataprivacypolicy.md # Optional data privacy policy page
 ```
@@ -83,6 +86,9 @@ content/
 ├── publications/        # Required: Academic or professional publications
 │   ├── 001-latest-paper.md
 │   └── 002-conference-paper.md
+├── achievements/        # Required: Professional achievements and awards
+│   ├── 001-latest-award.md
+│   └── 002-previous-award.md
 ├── legalnotice.md       # Optional: Legal notice
 └── dataprivacypolicy.md # Optional: Privacy policy
 ```
@@ -241,6 +247,26 @@ Description of the publication, key findings, or abstract. You can include:
 ```
 
 The publications will be displayed in chronological order, with the most recent publications appearing first. All frontmatter fields (authors, venue, date) are optional - if a field is omitted, it will be skipped in the display without showing empty separators.
+
+#### Achievement Entries (achievements/*.md)
+
+Achievement entries are stored in markdown files within the `content/achievements` directory. Each file represents a significant professional accomplishment, award, or recognition. The files should follow the naming convention `[order]-[description].md`, where `order` helps maintain the desired display sequence.
+
+The achievements are displayed in chronological order, with the most recent achievements appearing first. Each achievement entry requires specific frontmatter fields to properly display in the timeline.
+
+Example: `content/achievements/001-tech-innovation.md`:
+```markdown
+---
+year: "2023"           # Year of achievement
+title: "Tech Innovation Award"  # Name of award or achievement
+description: "Recognized for developing a groundbreaking AI-powered code review system."  # Brief description of the achievement
+---
+```
+
+The achievements section provides a timeline view of your professional accomplishments, making it easy for readers to track your career milestones. Each achievement is displayed with:
+- A year indicator
+- The achievement title
+- A concise description of the accomplishment or recognition
 
 ### 3. Theme Configuration
 
@@ -405,6 +431,7 @@ const siteConfig: SiteConfig = {
     headlines: {
       summary: "Summary",         // Headline for the summary section
       experience: "Experience",   // Headline for work experience
+      achievements: "Achievements", // Headline for achievements timeline
       publications: "Publications", // Headline for publications list
       skills: "Skills",          // Headline for skills section
       education: "Education"      // Headline for education section
